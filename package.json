@@ -1,17 +1,44 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
+  "name": "hrsf128-front-end-capstone",
+  "description": "> Project description",
   "author": "",
-  "license": "",
+  "license": "ISC",
   "engines": {
     "node": ">=6.13.0"
   },
   "scripts": {
+    "start": "nodemon server/index.js",
+    "db:setup": "node database/seed.js",
+    "dev:react": "webpack -d --watch"
   },
   "dependencies": {
+    "express": "^4.17.1",
+    "jquery": "^3.5.1",
+    "mongodb": "^3.5.9",
+    "mongoose": "^5.9.19",
+    "nodemon": "^2.0.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
-  }
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor.git",
+    "webpack-cli": "^3.3.12",
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "webpack": "^2.2.1"
+  },
+  "version": "1.0.0",
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eleenyeh/hrsf128-front-end-capstone.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/eleenyeh/hrsf128-front-end-capstone/issues"
+  },
+  "homepage": "https://github.com/eleenyeh/hrsf128-front-end-capstone#readme"
 }
