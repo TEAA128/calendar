@@ -35,9 +35,13 @@ let find = (placeID) => {
   return Calendar.find({id: placeID});
 }
 
+let patch = (placeID, obj) => {
+  return Calendar.update({id: placeID}, {$push: {bookings: obj}});
+}
 
 module.exports = {
   Calendar,
-  find
+  find,
+  patch
 }
 

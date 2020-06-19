@@ -27,5 +27,17 @@ app.get('/api/:placeID', (req, res) => {
     })
 });
 
+app.patch('/api/:placeID', (req, res) => {
+  const place = req.params.placeID;
+  const add = req.body;
+
+  Calendar.patch(place, add)
+    .then((data) => {
+      res.send('patch success! (from server)');
+    })
+    .catch((err) => {
+      res.send(err);
+    })
+})
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
