@@ -31,10 +31,12 @@ let calendarSchema = new mongoose.Schema({
 
 let Calendar = mongoose.model('Calendar', calendarSchema);
 
+// find function
 let find = (placeID) => {
   return Calendar.find({id: placeID});
 }
 
+// patch function
 let patch = (placeID, obj) => {
   return Calendar.update({id: placeID}, {$push: {bookings: obj}});
 }
