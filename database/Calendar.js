@@ -21,13 +21,6 @@ let calendarSchema = new mongoose.Schema({
     }
   }]
 });
-// nights: Number,
-// checkin: Date,
-// guests: {
-//   adults: Number,
-//   children: Number,
-//   infants: Number
-// },
 
 let Calendar = mongoose.model('Calendar', calendarSchema);
 
