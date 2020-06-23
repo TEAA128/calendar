@@ -9,12 +9,14 @@
   "scripts": {
     "start": "nodemon server/index.js",
     "db:setup": "node database/seed.js",
-    "dev:react": "webpack -d --watch"
+    "dev:react": "webpack -d --watch",
+    "test": "jest"
   },
   "dependencies": {
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "jquery": "^3.5.1",
+    "moment": "^2.27.0",
     "mongodb": "^3.5.9",
     "mongoose": "^5.9.19",
     "nodemon": "^2.0.4",
@@ -34,6 +36,7 @@
     "eslint-plugin-jsx-a11y": "^6.3.0",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^2.5.1",
+    "jest": "^26.0.1",
     "webpack": "^2.2.1",
     "webpack-cli": "^3.3.12"
   },
