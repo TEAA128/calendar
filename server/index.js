@@ -14,7 +14,7 @@ app.get('/', (req, res) => res.send('Hello World!'));
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-
+// get request
 app.get('/api/:placeID', (req, res) => {
   const place = req.params.placeID;
 
@@ -27,6 +27,7 @@ app.get('/api/:placeID', (req, res) => {
     })
 });
 
+// patch request
 app.patch('/api/:placeID', (req, res) => {
   const place = req.params.placeID;
   const add = req.body;

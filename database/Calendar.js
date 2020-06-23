@@ -21,20 +21,15 @@ let calendarSchema = new mongoose.Schema({
     }
   }]
 });
-// nights: Number,
-// checkin: Date,
-// guests: {
-//   adults: Number,
-//   children: Number,
-//   infants: Number
-// },
 
 let Calendar = mongoose.model('Calendar', calendarSchema);
 
+// find function
 let find = (placeID) => {
   return Calendar.find({id: placeID});
 }
 
+// patch function
 let patch = (placeID, obj) => {
   return Calendar.update({id: placeID}, {$push: {bookings: obj}});
 }
