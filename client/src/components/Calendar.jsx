@@ -64,9 +64,9 @@ class Calendar extends React.Component {
       )
     });
 
-    let blanks = [];
+    let blanks1 = [];
     for (let i = 0; i < this.firstDayOfMonth(); i++) {
-      blanks.push(<td key={i * 80} className="emptySlot">
+      blanks1.push(<td key={i * 80} className="emptySlot">
         {""}
       </td>);
     }
