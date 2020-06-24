@@ -81,6 +81,14 @@ class Calendar extends React.Component {
     })
   }
 
+  calculateNights() {
+    const date1 = new Date(this.state.checkIn);
+    const date2 = new Date(this.state.checkOut);
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  }
+
   render() {
     let weekdays = this.weekdaysShort.map((day) => {
       return (
@@ -133,9 +141,24 @@ class Calendar extends React.Component {
       )
     })
 
+    let numberNights;
+
+    if (this.state.pickDate === 2) {
+      if (this.calculateNights() === 1) {
+        numberNights = this.calculateNights() + ' night';
+      } else {
+        numberNights = this.calculateNights() + ' nights';
+      }
+    } else if (this.state.pickDate < 2) {
+      numberNights = 'Select dates';
+    }
+
 
     return (
       <div>
+        <div>
+          {numberNights}
+        </div>
         <div>
           <span>{this.state.checkIn}</span> | <span>{this.state.checkOut}</span>
         </div>
