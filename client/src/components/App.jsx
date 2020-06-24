@@ -8,27 +8,31 @@ class App extends React.Component {
     super();
 
     this.state = {
-      id: 2,
-      nightly_fee: 244,
-      cleaning_fee: 56,
-      service_fee: 63,
-      occupancy_tax_fees: 19,
-      avg_rating: 0.8785097298603173,
-      reviews: 372,
-      city: "Travonmouth",
-      max_capacity: 5,
-      bookings: [
-            {
-              guests: {
-                adults: 2,
-                children: 1,
-                infants: 0
-              },
-              checkin: "2020-08-08T02:54:27.836Z",
-              checkout: "2020-08-12T18:15:39.123Z"
-            }
-        ],
+      info: {id: 2,
+            nightly_fee: 244,
+            cleaning_fee: 56,
+            service_fee: 63,
+            occupancy_tax_fees: 19,
+            avg_rating: 0.8785097298603173,
+            reviews: 372,
+            city: "Travonmouth",
+            max_capacity: 5,
+            bookings: [
+                  {
+                    guests: {
+                      adults: 2,
+                      children: 1,
+                      infants: 0
+                    },
+                    checkin: "2020-08-08T02:54:27.836Z",
+                    checkout: "2020-08-12T18:15:39.123Z"
+                  }
+              ],
+            },
+      reserve: false
     }
+
+    this.calendarElement = React.createRef();
   }
 
   // componentDidMount() {
@@ -62,14 +66,36 @@ class App extends React.Component {
     })
   }
 
+  handleClick(event) {
+    event.preventDefault();
+    this.calendarElement.current.showCalendar();
+  }
+
+  buttonReserve() {
+    this.setState({
+      reserve: true
+    })
+  }
 
   render() {
+
+    let button;
+
+    if (!this.state.reserve) {
+      button = <button onClick={this.handleClick.bind(this)}>Check Availability</button>
+    } else if (this.state.reserve) {
+      button = <button>Reserve</button>
+    }
+
+    // onClick={()=>{this.reserve(this.state.info)}}
+
     return (<div className="calendar-form">
-      <span> <span className="nightly-fee">${this.state.nightly_fee}</span> / night</span>
-      <span className="reviews"> {Math.round(this.state.avg_rating * 100)/100} ({this.state.reviews})</span>
+      <span> <span className="nightly-fee">${this.state.info.nightly_fee}</span> / night</span>
+      <span className="reviews"> {Math.round(this.state.info.avg_rating * 100)/100} ({this.state.info.reviews})</span>
       <form onSubmit={this.reserve.bind(this)}>
-      <Calendar />
-      {/* <Guests max={this.state.max_capacity} /> */}
+      <Calendar buttonReserve={this.buttonReserve.bind(this)} ref={this.calendarElement}/>
+      <Guests max={this.state.info.max_capacity} />
+      {button}
       </form>
     </div>
     )}

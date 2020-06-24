@@ -8,8 +8,10 @@ class Calendar extends React.Component {
     this.state = {
       dateContext: moment(),
       today: moment(),
-      showMonthPopup: false,
-      showYearPopup: false
+      pickDate: 0,
+      checkIn: 'CHECK-IN',
+      checkOut: 'CHECKOUT',
+      showCalendar: false
     }
 
     this.weekdays = moment.weekdays();
@@ -56,6 +58,44 @@ class Calendar extends React.Component {
     })
   }
 
+  pickDate(month, year, date) {
+    const monthFormat = moment().month(month).format('M');
+
+    if (this.state.pickDate === 0) {
+      this.setState({
+        pickDate: 1,
+        checkIn: `${monthFormat}/${date}/${year}`
+      })
+    } else if (this.state.pickDate === 1) {
+      this.setState({
+        pickDate: 2,
+        checkOut: `${monthFormat}/${date}/${year}`
+      })
+      this.props.buttonReserve();
+    }
+  }
+
+  clearDates() {
+    this.setState({
+      pickDate: 0,
+      checkIn: 'CHECK-IN',
+      checkOut: 'CHECKOUT'
+    })
+  }
+
+  calculateNights() {
+    const date1 = new Date(this.state.checkIn);
+    const date2 = new Date(this.state.checkOut);
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  }
+
+  showCalendar() {
+    this.setState({
+      showCalendar: !this.state.showCalendar
+    })
+  }
 
   render() {
     let weekdays = this.weekdaysShort.map((day) => {
@@ -64,9 +104,9 @@ class Calendar extends React.Component {
       )
     });
 
-    let blanks1 = [];
+    let blanks = [];
     for (let i = 0; i < this.firstDayOfMonth(); i++) {
-      blanks1.push(<td key={i * 80} className="emptySlot">
+      blanks.push(<td key={i * 80} className="emptySlot">
         {""}
       </td>);
     }
@@ -75,8 +115,8 @@ class Calendar extends React.Component {
     for (let d = 1; d <= this.daysInMonth(); d++) {
       let className = (d == this.currentDay() ? "day current-day": "day");
       daysInMonth.push(
-        <td key={d*10} className={className} >
-          <span>{d}</span>
+        <td key={d*10} className={className}>
+          <span onClick={()=>{this.pickDate(this.month(), this.year(), d)}}>{d}</span>
         </td>
       )
     }
@@ -109,29 +149,57 @@ class Calendar extends React.Component {
       )
     })
 
+    let numberNights;
+
+    if (this.state.pickDate === 2) {
+      if (this.calculateNights() === 1) {
+        numberNights = this.calculateNights() + ' night';
+      } else {
+        numberNights = this.calculateNights() + ' nights';
+      }
+    } else if (this.state.pickDate < 2) {
+      numberNights = 'Select dates';
+    }
+
+    let calendar;
+    if (this.state.showCalendar) {
+      calendar = (
+      <div className="calendar-container">
+        <div>
+          {numberNights}
+        </div>
+      <table className="calendar">
+        <thead>
+          <tr className="calendar-header">
+
+            <td onClick={this.onBackClick.bind(this)}>back</td>
+            <td colSpan="5">{this.month()} {this.year()}</td>
+            <td onClick={this.onForwardClick.bind(this)}>foward</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {weekdays}
+          </tr>
+          {trElems}
+          <tr>
+            <td colSpan="5" onClick={this.clearDates.bind(this)}>Clear dates</td>
+            <td colSpan="2" onClick={this.showCalendar.bind(this)}>Close</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>)
+    } else {
+      calendar;
+    }
+
 
     return (
       <div>
-        <div>
-          <span>CHECK-IN</span> | <span>CHECKOUT</span>
+        <div onClick={this.showCalendar.bind(this)}>
+          <span>{this.state.checkIn}</span> | <span>{this.state.checkOut}</span>
         </div>
-        <div className="calendar-container">
-          <table className="calendar">
-            <thead>
-              <tr className="calendar-header">
-                <td onClick={this.onBackClick.bind(this)}>back</td>
-                <td colSpan="5">{this.month()} {this.year()}</td>
-                <td onClick={this.onForwardClick.bind(this)}>foward</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                {weekdays}
-              </tr>
-              {trElems}
-            </tbody>
-          </table>
-        </div>
+        {calendar}
 
 
 
