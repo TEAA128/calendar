@@ -8,8 +8,9 @@ class Calendar extends React.Component {
     this.state = {
       dateContext: moment(),
       today: moment(),
-      showMonthPopup: false,
-      showYearPopup: false
+      pickDate: 0,
+      checkIn: 'CHECK-IN',
+      checkOut: 'CHECKOUT'
     }
 
     this.weekdays = moment.weekdays();
@@ -56,6 +57,29 @@ class Calendar extends React.Component {
     })
   }
 
+  pickDate(month, year, date) {
+    const monthFormat = moment().month(month).format('M');
+
+    if (this.state.pickDate === 0) {
+      this.setState({
+        pickDate: 1,
+        checkIn: `${monthFormat}/${date}/${year}`
+      })
+    } else if (this.state.pickDate === 1) {
+      this.setState({
+        pickDate: 2,
+        checkOut: `${monthFormat}/${date}/${year}`
+      })
+    }
+  }
+
+  clearDates() {
+    this.setState({
+      pickDate: 0,
+      checkIn: 'CHECK-IN',
+      checkOut: 'CHECKOUT'
+    })
+  }
 
   render() {
     let weekdays = this.weekdaysShort.map((day) => {
@@ -64,9 +88,9 @@ class Calendar extends React.Component {
       )
     });
 
-    let blanks1 = [];
+    let blanks = [];
     for (let i = 0; i < this.firstDayOfMonth(); i++) {
-      blanks1.push(<td key={i * 80} className="emptySlot">
+      blanks.push(<td key={i * 80} className="emptySlot">
         {""}
       </td>);
     }
@@ -75,8 +99,8 @@ class Calendar extends React.Component {
     for (let d = 1; d <= this.daysInMonth(); d++) {
       let className = (d == this.currentDay() ? "day current-day": "day");
       daysInMonth.push(
-        <td key={d*10} className={className} >
-          <span>{d}</span>
+        <td key={d*10} className={className}>
+          <span onClick={()=>{this.pickDate(this.month(), this.year(), d)}}>{d}</span>
         </td>
       )
     }
@@ -113,7 +137,7 @@ class Calendar extends React.Component {
     return (
       <div>
         <div>
-          <span>CHECK-IN</span> | <span>CHECKOUT</span>
+          <span>{this.state.checkIn}</span> | <span>{this.state.checkOut}</span>
         </div>
         <div className="calendar-container">
           <table className="calendar">
@@ -129,6 +153,9 @@ class Calendar extends React.Component {
                 {weekdays}
               </tr>
               {trElems}
+              <tr>
+                <td colSpan="5" onClick={this.clearDates.bind(this)}>Clear dates</td>
+              </tr>
             </tbody>
           </table>
         </div>
