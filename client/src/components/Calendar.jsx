@@ -10,7 +10,8 @@ class Calendar extends React.Component {
       today: moment(),
       pickDate: 0,
       checkIn: 'CHECK-IN',
-      checkOut: 'CHECKOUT'
+      checkOut: 'CHECKOUT',
+      showCalendar: false
     }
 
     this.weekdays = moment.weekdays();
@@ -70,6 +71,7 @@ class Calendar extends React.Component {
         pickDate: 2,
         checkOut: `${monthFormat}/${date}/${year}`
       })
+      this.props.buttonReserve();
     }
   }
 
@@ -87,6 +89,12 @@ class Calendar extends React.Component {
     const diffTime = Math.abs(date2 - date1);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
+  }
+
+  showCalendar() {
+    this.setState({
+      showCalendar: !this.state.showCalendar
+    })
   }
 
   render() {
@@ -153,35 +161,45 @@ class Calendar extends React.Component {
       numberNights = 'Select dates';
     }
 
-
-    return (
-      <div>
+    let calendar;
+    if (this.state.showCalendar) {
+      calendar = (
+      <div className="calendar-container">
         <div>
           {numberNights}
         </div>
-        <div>
+      <table className="calendar">
+        <thead>
+          <tr className="calendar-header">
+
+            <td onClick={this.onBackClick.bind(this)}>back</td>
+            <td colSpan="5">{this.month()} {this.year()}</td>
+            <td onClick={this.onForwardClick.bind(this)}>foward</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {weekdays}
+          </tr>
+          {trElems}
+          <tr>
+            <td colSpan="5" onClick={this.clearDates.bind(this)}>Clear dates</td>
+            <td colSpan="2" onClick={this.showCalendar.bind(this)}>Close</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>)
+    } else {
+      calendar;
+    }
+
+
+    return (
+      <div>
+        <div onClick={this.showCalendar.bind(this)}>
           <span>{this.state.checkIn}</span> | <span>{this.state.checkOut}</span>
         </div>
-        <div className="calendar-container">
-          <table className="calendar">
-            <thead>
-              <tr className="calendar-header">
-                <td onClick={this.onBackClick.bind(this)}>back</td>
-                <td colSpan="5">{this.month()} {this.year()}</td>
-                <td onClick={this.onForwardClick.bind(this)}>foward</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                {weekdays}
-              </tr>
-              {trElems}
-              <tr>
-                <td colSpan="5" onClick={this.clearDates.bind(this)}>Clear dates</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        {calendar}
 
 
 

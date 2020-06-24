@@ -47,6 +47,10 @@ class Guests extends React.Component {
       return;
     }
 
+    if (input === 'minus' && this.state.adults <= 1) {
+      return;
+    }
+
     if (input === 'plus' && this.state.guests === this.props.max) {
       return;
     }
@@ -135,7 +139,6 @@ class Guests extends React.Component {
     } else {
       expand;
     }
-
 
     return (<div>
       <div>GUESTS</div>
