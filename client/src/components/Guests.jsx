@@ -1,4 +1,7 @@
 import React from 'react';
+import styles from '../../dist/style.css';
+import Chevron from './airbnb-chevron.svg';
+import SVG from 'react-inlinesvg';
 
 class Guests extends React.Component {
   constructor(props) {
@@ -47,7 +50,7 @@ class Guests extends React.Component {
       return;
     }
 
-    if (input === 'minus' && this.state.adults <= 1) {
+    if (input === 'minus' && this.state.adults <= 1 && type !== 'children') {
       return;
     }
 
@@ -97,41 +100,53 @@ class Guests extends React.Component {
     }
 
     if (this.state.guests === 1) {
-      button = <button onClick={this.toggleExpandState}> {this.state.guests} guest{infants}</button>
+      button = (<div className={styles.guests} onClick={this.toggleExpandState}>
+        <div className={styles.guestsLabel}>GUESTS <span className={styles.chevron}><SVG src={Chevron} /> </span></div>
+        <div className={styles.guestsCount}> {this.state.guests} guest{infants}</div>
+        </div>)
     } else {
-      button = <button onClick={this.toggleExpandState}>{this.state.guests} guests{infants}</button>
+      button = (<div className={styles.guests} onClick={this.toggleExpandState}>
+        <div className={styles.guestsLabel}>GUESTS<span className={styles.chevron}><SVG src={Chevron} /> </span></div>
+        <div className={styles.guestsCount}>{this.state.guests} guests{infants}</div>
+        </div>)
     }
 
     if (this.state.expand) {
       expand = (
-        <div>
+        <div className={styles.expand}>
 
-        <div>
-          Adults
-          <button className="plus-minus" onClick={(event) => {this.handleClick(event, 'minus', 'adults')}}> - </button>
+        <div className={styles.padding}>
+          <span className={styles.bold}>Adults</span>
+          <span className={styles.guestCounter}>
+          <span className={styles.plusMinus} onClick={(event) => {this.handleClick(event, 'minus', 'adults')}}> - </span>
             {this.state.adults}
-          <button className="plus-minus" onClick={(event) => {this.handleClick(event, 'plus', 'adults')}}> + </button>
+          <span className={styles.plusMinus} onClick={(event) => {this.handleClick(event, 'plus', 'adults')}}> + </span>
+          </span>
         </div>
 
-        <div>
-          Children (Ages 2-12)
-          <button className="plus-minus" onClick={(event)=> {this.handleClick(event, 'minus', 'children')}}> - </button>
+        <div className={styles.padding}>
+          <span className={styles.bold}>Children</span> (Ages 2-12)
+          <span className={styles.guestCounter}>
+          <span className={styles.plusMinus} onClick={(event)=> {this.handleClick(event, 'minus', 'children')}}>  -  </span>
             {this.state.children}
-          <button className="plus-minus" onClick={(event)=> {this.handleClick(event, 'plus', 'children')}}> + </button>
+          <span className={styles.plusMinus} onClick={(event)=> {this.handleClick(event, 'plus', 'children')}}> + </span>
+          </span>
         </div>
 
-        <div>
-          Infants (Under 2)
-          <button className="plus-minus" onClick={(event)=> {this.handleClickInfant(event, 'minus')}}> - </button>
+        <div className={styles.padding}>
+          <span className={styles.bold}>Infants</span> (Under 2)
+          <span className={styles.guestCounter}>
+          <span className={styles.plusMinus} onClick={(event)=> {this.handleClickInfant(event, 'minus')}}> - </span>
             {this.state.infants}
-          <button className="plus-minus" onClick={(event)=> {this.handleClickInfant(event, 'plus')}}> + </button>
+          <span className={styles.plusMinus} onClick={(event)=> {this.handleClickInfant(event, 'plus')}}> + </span>
+          </span>
         </div>
 
-        <div>
-          2 guests maximum. Infants don't count towarrd the number of guests.
+        <div className={styles.fadedText}>
+          2 guests maximum. Infants don't count toward the number of guests.
         </div>
 
-        <div onClick={this.toggleExpandState}>
+        <div className={styles.guestsClose} onClick={this.toggleExpandState}>
           Close
         </div>
       </div>
@@ -141,9 +156,8 @@ class Guests extends React.Component {
     }
 
     return (<div>
-      <div>GUESTS</div>
       <div>{button}</div>
-      <div>{expand}</div>
+      <div className={styles.expand}>{expand}</div>
     </div>)
   }
 }

@@ -19,9 +19,26 @@ module.exports = {
         include : SRC_DIR,
         loader : 'babel-loader',
         query: {
-          presets: ['react', 'env']
+          presets: ['@babel/preset-env', '@babel/preset-react']
        }
-      }
+      },
+      {
+        test: /\.css$/i,
+        exclude: /node_modules/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader',
+      },
     ]
   }
 };
