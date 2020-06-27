@@ -12,10 +12,7 @@ class Calendar extends React.Component {
       dateContext: moment(),
       today: moment(),
       pickDate: 0,
-      checkIn: 'Add date',
-      checkOut: 'Add date',
-      showCalendar: false,
-      nights: null
+      showCalendar: false
     }
 
     this.weekdays = moment.weekdays();
@@ -64,39 +61,28 @@ class Calendar extends React.Component {
 
   pickDate(month, year, date) {
     const monthFormat = moment().month(month).format('M');
+    const dateFormat = `${monthFormat}/${date}/${year}`;
 
     if (this.state.pickDate === 0) {
       this.setState({
-        pickDate: 1,
-        checkIn: `${monthFormat}/${date}/${year}`
+        pickDate: 1
       })
+      this.props.updateCheckIn(dateFormat);
     } else if (this.state.pickDate === 1) {
       this.setState({
-        pickDate: 2,
-        checkOut: `${monthFormat}/${date}/${year}`,
-        // nights: this.calculateNights()
+        pickDate: 2
       })
-      // console.log(this.calculateNights());
-      this.props.buttonReserve();
-      this.props.updateNights(9);
+      this.props.updateCheckOut(dateFormat);
     }
   }
 
   clearDates() {
     this.setState({
-      pickDate: 0,
-      checkIn: 'Add date',
-      checkOut: 'Add date'
+      pickDate: 0
     })
+    this.props.clearDates();
   }
 
-  calculateNights() {
-    const date1 = new Date(this.state.checkIn);
-    const date2 = new Date(this.state.checkOut);
-    const diffTime = Math.abs(date2 - date1);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
-  }
 
   showCalendar() {
     this.setState({
@@ -157,12 +143,13 @@ class Calendar extends React.Component {
     })
 
     let numberNights;
+    let updatedNights = this.props.calculateNights();
 
     if (this.state.pickDate === 2) {
-      if (this.calculateNights() === 1) {
-        numberNights = this.calculateNights() + ' night';
+      if (this.props.calculateNights() === 1) {
+        numberNights = this.props.calculateNights() + ' night';
       } else {
-        numberNights = this.calculateNights() + ' nights';
+        numberNights = this.props.calculateNights() + ' nights';
       }
     } else if (this.state.pickDate < 2) {
       numberNights = 'Select dates';
@@ -207,12 +194,12 @@ class Calendar extends React.Component {
         <div className={styles.checkContainer} onClick={this.showCalendar.bind(this)}>
           <div className={styles.checkInBox}>
             <div className={styles.guestsLabel}>CHECK-IN</div>
-            <div className={styles.guestsCount}>{this.state.checkIn}</div>
+            <div className={styles.guestsCount}>{this.props.checkIn}</div>
           </div>
 
           <div className={styles.checkOutBox}>
             <div className={styles.guestsLabel}>CHECKOUT</div>
-            <div className={styles.guestsCount}>{this.state.checkOut}</div>
+            <div className={styles.guestsCount}>{this.props.checkOut}</div>
           </div>
 
         </div>

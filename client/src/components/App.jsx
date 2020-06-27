@@ -31,8 +31,8 @@ class App extends React.Component {
                   }
               ],
             },
-      nights: null,
-      reserve: false
+      checkIn: 'Add date',
+      checkOut: 'Add date'
     }
 
     this.calendarElement = React.createRef();
@@ -74,10 +74,37 @@ class App extends React.Component {
     this.calendarElement.current.showCalendar();
   }
 
-  buttonReserve() {
+  // buttonReserve() {
+  //   this.setState({
+  //     reserve: true
+  //   })
+  // }
+
+  updateCheckIn(date) {
     this.setState({
-      reserve: true
+      checkIn: date
     })
+  }
+
+  updateCheckOut(date) {
+    this.setState({
+      checkOut: date
+    })
+  }
+
+  clearDates() {
+    this.setState({
+      checkIn: 'Add date',
+      checkOut: 'Add date'
+    })
+  }
+
+  calculateNights() {
+    const date1 = new Date(this.state.checkIn);
+    const date2 = new Date(this.state.checkOut);
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
   }
 
   updateNights(nights) {
@@ -90,19 +117,15 @@ class App extends React.Component {
 
     let button;
     let price;
+    let reserve = this.state.checkIn !== 'Add date' && this.state.checkOut !== 'Add date';
 
-    if (!this.state.reserve) {
-      button = <div className={styles.pinkButton} onClick={this.handleClick.bind(this)}>Check availability</div>
-    } else if (this.state.reserve) {
+    if (reserve) {
       button = <div className={styles.pinkButton}>Reserve</div>
-    }
-
-    if (this.state.nights) {
-      price = <PriceBreakDown info={this.state.info} nights={this.state.nights} />
+      price = <PriceBreakDown info={this.state.info} calculateNights={this.calculateNights.bind(this)} />
     } else {
+      button = <div className={styles.pinkButton} onClick={this.handleClick.bind(this)}>Check availability</div>
       price;
     }
-    // onClick={()=>{this.reserve(this.state.info)}}
 
     return (<div className={styles.calendarForm}>
       <div className='top-bar'>
@@ -111,7 +134,9 @@ class App extends React.Component {
       </div>
       <form onSubmit={this.reserve.bind(this)}>
         <div className={styles.checkinGuestsContainer}>
-      <Calendar updateNights={this.updateNights.bind(this)} buttonReserve={this.buttonReserve.bind(this)} ref={this.calendarElement}/>
+
+      <Calendar calculateNights={this.calculateNights.bind(this)} clearDates={this.clearDates.bind(this)} checkIn={this.state.checkIn} checkOut={this.state.checkOut} updateCheckIn={this.updateCheckIn.bind(this)} updateCheckOut={this.updateCheckOut.bind(this)} ref={this.calendarElement}/>
+
       <Guests max={this.state.info.max_capacity} />
       </div>
       {button}
