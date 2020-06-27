@@ -32,7 +32,10 @@ class App extends React.Component {
               ],
             },
       checkIn: 'Add date',
-      checkOut: 'Add date'
+      checkOut: 'Add date',
+      adults: 1,
+      children: 0,
+      infants: 0
     }
 
     this.calendarElement = React.createRef();
@@ -107,9 +110,15 @@ class App extends React.Component {
     return diffDays;
   }
 
-  updateNights(nights) {
+  updateGuests(type, operation) {
+    let result;
+    if (operation === 'plus') {
+      result = this.state[type] + 1;
+    } else {
+      result = this.state[type] - 1;
+    }
     this.setState({
-      nights: nights
+      [type]: result
     })
   }
 
@@ -137,7 +146,7 @@ class App extends React.Component {
 
       <Calendar calculateNights={this.calculateNights.bind(this)} clearDates={this.clearDates.bind(this)} checkIn={this.state.checkIn} checkOut={this.state.checkOut} updateCheckIn={this.updateCheckIn.bind(this)} updateCheckOut={this.updateCheckOut.bind(this)} ref={this.calendarElement}/>
 
-      <Guests max={this.state.info.max_capacity} />
+      <Guests updateGuests={this.updateGuests.bind(this)} adults={this.state.adults} children={this.state.children} infants={this.state.infants} max={this.state.info.max_capacity} />
       </div>
       {button}
       </form>

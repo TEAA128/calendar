@@ -10,9 +10,6 @@ class Guests extends React.Component {
     this.state = {
       expand: false,
       guests: 1,
-      adults: 1,
-      children: 0,
-      infants: 0
     }
 
     this.handleClick = this.handleClick.bind(this);
@@ -23,23 +20,19 @@ class Guests extends React.Component {
   handleClickInfant(event, input) {
     event.preventDefault();
 
-    if (input === 'minus' && this.state.infants === 0) {
+    if (input === 'minus' && this.props.infants === 0) {
       return;
     }
-    if (input === 'plus' && this.state.infants >= 5) {
+    if (input === 'plus' && this.props.infants >= 5) {
       return;
     }
     if (input === 'plus') {
-      let plused = this.state.infants + 1;
-      this.setState({
-        infants: plused
-      })
+      let plused = this.props.infants + 1;
+      this.props.updateGuests('infants', 'plus');
     }
     if (input === 'minus') {
-      let minused = this.state.infants - 1;
-      this.setState({
-        infants: minused
-      })
+      let minused = this.props.infants - 1;
+      this.props.updateGuests('infants', 'minus');
     }
   }
 
@@ -50,7 +43,7 @@ class Guests extends React.Component {
       return;
     }
 
-    if (input === 'minus' && this.state.adults <= 1 && type !== 'children') {
+    if (input === 'minus' && this.props.adults <= 1 && type !== 'children') {
       return;
     }
 
@@ -63,18 +56,18 @@ class Guests extends React.Component {
       let plused = this.state[type] + 1;
       let plusedGuests = this.state.guests +1;
       this.setState({
-        [type]: plused,
         guests: plusedGuests
       })
+      this.props.updateGuests(type, 'plus')
     }
 
     if (input === 'minus') {
       let minused = this.state[type] - 1;
       let minusedGuests = this.state.guests - 1;
       this.setState({
-        [type]: minused,
         guests: minusedGuests
       })
+      this.props.updateGuests(type, 'minus');
     }
   }
 
@@ -92,10 +85,10 @@ class Guests extends React.Component {
     let infants;
     let chevron;
 
-    if (this.state.infants === 1) {
-      infants = `, ${this.state.infants} infant`;
-    } else if (this.state.infants > 1) {
-      infants = `, ${this.state.infants} infants`;;
+    if (this.props.infants === 1) {
+      infants = `, ${this.props.infants} infant`;
+    } else if (this.props.infants > 1) {
+      infants = `, ${this.props.infants} infants`;;
     } else {
       infants;
     }
@@ -128,7 +121,7 @@ class Guests extends React.Component {
             </div>
             <div className="guestCounter adult">
               <span className="plusMinus minus" onClick={(event) => {this.handleClick(event, 'minus', 'adults')}}> - </span>
-                {this.state.adults}
+                {this.props.adults}
               <span className="plusMinus plus" onClick={(event) => {this.handleClick(event, 'plus', 'adults')}}> + </span>
             </div>
           </div>
@@ -140,7 +133,7 @@ class Guests extends React.Component {
           </div>
           <div className="guestCounter">
             <span className="plusMinus minus" onClick={(event)=> {this.handleClick(event, 'minus', 'children')}}>  -  </span>
-              {this.state.children}
+              {this.props.children}
             <span className='plusMinus plus' onClick={(event)=> {this.handleClick(event, 'plus', 'children')}}> + </span>
           </div>
         </div>
@@ -152,7 +145,7 @@ class Guests extends React.Component {
           </div>
           <div className='guestCounter'>
           <span className='plusMinus minus' onClick={(event)=> {this.handleClickInfant(event, 'minus')}}> - </span>
-            {this.state.infants}
+            {this.props.infants}
           <span className='plusMinus plus' onClick={(event)=> {this.handleClickInfant(event, 'plus')}}> + </span>
           </div>
         </div>
