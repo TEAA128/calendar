@@ -43,12 +43,26 @@ class App extends React.Component {
       checkOut: 'Add date',
       adults: 1,
       children: 0,
-      infants: 0
+      infants: 0,
+      showCalendar: false,
+      showGuestsOptions: false
     }
 
     this.calendarElement = React.createRef();
   }
 
+  showCalendar() {
+    this.setState({
+      showCalendar: !this.state.showCalendar,
+      showGuestsOptions: false
+    })
+  }
+
+  showGuestsOptions() {
+    this.setState({
+      showGuestsOptions: !this.state.showGuestsOptions
+    })
+  }
   // componentDidMount() {
   //   this.getData();
   // }
@@ -147,9 +161,9 @@ class App extends React.Component {
       <form onSubmit={this.reserve.bind(this)}>
         <div className={styles.checkinGuestsContainer}>
 
-      <Calendar bookings={this.state.info.bookings} calculateNights={this.calculateNights.bind(this)} clearDates={this.clearDates.bind(this)} checkIn={this.state.checkIn} checkOut={this.state.checkOut} updateCheckIn={this.updateCheckIn.bind(this)} updateCheckOut={this.updateCheckOut.bind(this)} ref={this.calendarElement}/>
+      <Calendar showCalendarState={this.state.showCalendar} showCalendar={this.showCalendar.bind(this)} bookings={this.state.info.bookings} calculateNights={this.calculateNights.bind(this)} clearDates={this.clearDates.bind(this)} checkIn={this.state.checkIn} checkOut={this.state.checkOut} updateCheckIn={this.updateCheckIn.bind(this)} updateCheckOut={this.updateCheckOut.bind(this)} ref={this.calendarElement}/>
 
-      <Guests updateGuests={this.updateGuests.bind(this)} adults={this.state.adults} children={this.state.children} infants={this.state.infants} max={this.state.info.max_capacity} />
+      <Guests showGuestsOptions={this.showGuestsOptions.bind(this)} showGuestsState={this.state.showGuestsOptions} updateGuests={this.updateGuests.bind(this)} adults={this.state.adults} children={this.state.children} infants={this.state.infants} max={this.state.info.max_capacity} />
       </div>
       {button}
       </form>

@@ -12,7 +12,6 @@ class Calendar extends React.Component {
       dateContext: moment(),
       today: moment(),
       pickDate: 0,
-      showCalendar: false,
       firstDate: '',
       secondDate: ''
     }
@@ -75,9 +74,9 @@ class Calendar extends React.Component {
     } else if (this.state.pickDate === 1) {
       this.setState({
         pickDate: 2,
-        secondDate: fullDate,
-        showCalendar: false
+        secondDate: fullDate
       })
+      this.props.showCalendar();
       this.props.updateCheckOut(dateFormat);
     }
   }
@@ -106,11 +105,7 @@ class Calendar extends React.Component {
   }
 
 
-  showCalendar() {
-    this.setState({
-      showCalendar: !this.state.showCalendar
-    })
-  }
+
 
   checkBookedDates(day, month, year) {
     let ranges = [];
@@ -221,7 +216,7 @@ class Calendar extends React.Component {
     }
 
     let calendar;
-    if (this.state.showCalendar) {
+    if (this.props.showCalendarState) {
       calendar = (
       <div className="calendar-container">
         <div className={styles.selectDates}>
@@ -249,7 +244,7 @@ class Calendar extends React.Component {
       </table>
       <div className="calendar-footer">
       <span className={styles.calClearDates} onClick={this.clearDates.bind(this)}>Clear dates</span>
-      <span  className={styles.calClose} onClick={this.showCalendar.bind(this)}>Close</span>
+      <span  className={styles.calClose} onClick={this.props.showCalendar}>Close</span>
       </div>
     </div>)
     } else {
@@ -260,7 +255,7 @@ class Calendar extends React.Component {
     return (
       <div >
 
-        <div className={styles.checkContainer} onClick={this.showCalendar.bind(this)}>
+        <div className={styles.checkContainer} onClick={this.props.showCalendar}>
           <div className={styles.checkInBox}>
             <div className={styles.guestsLabel}>CHECK-IN</div>
             <div className={styles.guestsCount}>{this.props.checkIn}</div>
