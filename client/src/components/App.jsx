@@ -13,8 +13,7 @@ class App extends React.Component {
       info: {id: 2,
             nightly_fee: 244,
             cleaning_fee: 56,
-            service_fee: 63,
-            occupancy_tax_fees: 19,
+            occupancy_tax_fees: 0.09,
             avg_rating: 0.8785097298603173,
             reviews: 372,
             city: "Travonmouth",
@@ -76,12 +75,6 @@ class App extends React.Component {
     event.preventDefault();
     this.calendarElement.current.showCalendar();
   }
-
-  // buttonReserve() {
-  //   this.setState({
-  //     reserve: true
-  //   })
-  // }
 
   updateCheckIn(date) {
     this.setState({
