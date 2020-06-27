@@ -5,7 +5,7 @@ var PriceBreakDown = (props) => {
   let numberNights = props.calculateNights();
   let basePrice = props.info.nightly_fee * numberNights;
   let serviceFee = Math.round(basePrice * 0.142);
-  let occupancyTax = Math.round(basePrice * props.info.occupancy_tax_fees);
+  let occupancyTax = Math.round(basePrice * props.info.occupancy_tax_rate);
   let total = basePrice + props.info.cleaning_fee + serviceFee + occupancyTax;
   let night;
 

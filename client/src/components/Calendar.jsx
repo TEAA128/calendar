@@ -62,15 +62,18 @@ class Calendar extends React.Component {
   pickDate(month, year, date) {
     const monthFormat = moment().month(month).format('M');
     const dateFormat = `${monthFormat}/${date}/${year}`;
+    const fullDate = `${month.substring(0, 3)} ${date}, ${year}`;
 
     if (this.state.pickDate === 0) {
       this.setState({
-        pickDate: 1
+        pickDate: 1,
+        firstDate: fullDate
       })
       this.props.updateCheckIn(dateFormat);
     } else if (this.state.pickDate === 1) {
       this.setState({
-        pickDate: 2
+        pickDate: 2,
+        secondDate: fullDate
       })
       this.props.updateCheckOut(dateFormat);
     }
@@ -105,6 +108,7 @@ class Calendar extends React.Component {
     }
 
     let daysInMonth = [];
+
     for (let d = 1; d <= this.daysInMonth(); d++) {
       let className = (d == this.currentDay() ? "day current-day": "day");
       daysInMonth.push(
@@ -155,6 +159,12 @@ class Calendar extends React.Component {
       numberNights = 'Select dates';
     }
 
+    let dateRange;
+
+    if (this.state.firstDate && this.state.secondDate && this.props.checkOut !== 'Add date') {
+      dateRange = `${this.state.firstDate} - ${this.state.secondDate}`;
+    }
+
     let calendar;
     if (this.state.showCalendar) {
       calendar = (
@@ -162,6 +172,10 @@ class Calendar extends React.Component {
         <div className={styles.selectDates}>
           {numberNights}
         </div>
+        <div className={styles.dateRange}>
+          {dateRange}
+        </div>
+
       <table className={styles.calendarTable}>
         <thead>
           <tr className="calendar-header">
