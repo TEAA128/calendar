@@ -68,7 +68,8 @@ class Calendar extends React.Component {
     if (this.state.pickDate === 0 || this.state.pickDate === 2) {
       this.setState({
         pickDate: 1,
-        firstDate: fullDate
+        firstDate: fullDate,
+        secondDate: ''
       })
       this.props.updateCheckIn(dateFormat);
     } else if (this.state.pickDate === 1) {
@@ -103,9 +104,6 @@ class Calendar extends React.Component {
     })
     this.props.clearDates();
   }
-
-
-
 
   checkBookedDates(day, month, year) {
     let ranges = [];
@@ -155,8 +153,6 @@ class Calendar extends React.Component {
       );
 
       let dateRender;
-
-
 
       // cross out all dates prior to current date and all booked dates
       if (date.getTime() < currentDayDate.getTime() || this.checkBookedDates(d, this.month(), this.year()) || this.crossOutPrevDates(d, this.month(), this.year()) ) {
