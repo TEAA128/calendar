@@ -2,6 +2,8 @@ import React from 'react';
 import $ from 'jquery';
 import Calendar from './Calendar.jsx';
 import Guests from './Guests.jsx';
+import PriceBreakDown from './PriceBreakDown.jsx';
+import styles from '../../dist/style.css';
 
 class App extends React.Component {
   constructor() {
@@ -29,6 +31,7 @@ class App extends React.Component {
                   }
               ],
             },
+      nights: null,
       reserve: false
     }
 
@@ -77,26 +80,43 @@ class App extends React.Component {
     })
   }
 
+  updateNights(nights) {
+    this.setState({
+      nights: nights
+    })
+  }
+
   render() {
 
     let button;
+    let price;
 
     if (!this.state.reserve) {
-      button = <button onClick={this.handleClick.bind(this)}>Check Availability</button>
+      button = <div className={styles.pinkButton} onClick={this.handleClick.bind(this)}>Check availability</div>
     } else if (this.state.reserve) {
-      button = <button>Reserve</button>
+      button = <div className={styles.pinkButton}>Reserve</div>
     }
 
+    if (this.state.nights) {
+      price = <PriceBreakDown info={this.state.info} nights={this.state.nights} />
+    } else {
+      price;
+    }
     // onClick={()=>{this.reserve(this.state.info)}}
 
-    return (<div className="calendar-form">
-      <span> <span className="nightly-fee">${this.state.info.nightly_fee}</span> / night</span>
-      <span className="reviews"> {Math.round(this.state.info.avg_rating * 100)/100} ({this.state.info.reviews})</span>
+    return (<div className={styles.calendarForm}>
+      <div className='top-bar'>
+      <span> <span className={styles.nightlyFee}>${this.state.info.nightly_fee}</span> / night</span>
+      <span className={styles.reviewsRating}> <span className={styles.star}>&#9733;</span> {Math.round(this.state.info.avg_rating * 100)/100} ({this.state.info.reviews})</span>
+      </div>
       <form onSubmit={this.reserve.bind(this)}>
-      <Calendar buttonReserve={this.buttonReserve.bind(this)} ref={this.calendarElement}/>
+        <div className={styles.checkinGuestsContainer}>
+      <Calendar updateNights={this.updateNights.bind(this)} buttonReserve={this.buttonReserve.bind(this)} ref={this.calendarElement}/>
       <Guests max={this.state.info.max_capacity} />
+      </div>
       {button}
       </form>
+      {price}
     </div>
     )}
 }

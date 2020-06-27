@@ -1,5 +1,8 @@
 import React from 'react';
 import moment from 'moment';
+import styles from '../../dist/style.css';
+import Chevron from './airbnb-chevron.svg';
+import SVG from 'react-inlinesvg';
 
 class Calendar extends React.Component {
   constructor(props) {
@@ -9,9 +12,10 @@ class Calendar extends React.Component {
       dateContext: moment(),
       today: moment(),
       pickDate: 0,
-      checkIn: 'CHECK-IN',
-      checkOut: 'CHECKOUT',
-      showCalendar: false
+      checkIn: 'Add date',
+      checkOut: 'Add date',
+      showCalendar: false,
+      nights: null
     }
 
     this.weekdays = moment.weekdays();
@@ -69,17 +73,20 @@ class Calendar extends React.Component {
     } else if (this.state.pickDate === 1) {
       this.setState({
         pickDate: 2,
-        checkOut: `${monthFormat}/${date}/${year}`
+        checkOut: `${monthFormat}/${date}/${year}`,
+        // nights: this.calculateNights()
       })
+      // console.log(this.calculateNights());
       this.props.buttonReserve();
+      this.props.updateNights(9);
     }
   }
 
   clearDates() {
     this.setState({
       pickDate: 0,
-      checkIn: 'CHECK-IN',
-      checkOut: 'CHECKOUT'
+      checkIn: 'Add date',
+      checkOut: 'Add date'
     })
   }
 
@@ -165,16 +172,16 @@ class Calendar extends React.Component {
     if (this.state.showCalendar) {
       calendar = (
       <div className="calendar-container">
-        <div>
+        <div className={styles.selectDates}>
           {numberNights}
         </div>
-      <table className="calendar">
+      <table className={styles.calendarTable}>
         <thead>
           <tr className="calendar-header">
 
-            <td onClick={this.onBackClick.bind(this)}>back</td>
-            <td colSpan="5">{this.month()} {this.year()}</td>
-            <td onClick={this.onForwardClick.bind(this)}>foward</td>
+            <td onClick={this.onBackClick.bind(this)} className={styles.rotateLeft}><SVG src={Chevron} /></td>
+            <td colSpan="5" className={styles.calendarTitle}>{this.month()} {this.year()}</td>
+            <td onClick={this.onForwardClick.bind(this)} className={styles.rotateRight}><SVG src={Chevron} /></td>
           </tr>
         </thead>
         <tbody>
@@ -182,12 +189,12 @@ class Calendar extends React.Component {
             {weekdays}
           </tr>
           {trElems}
-          <tr>
-            <td colSpan="5" onClick={this.clearDates.bind(this)}>Clear dates</td>
-            <td colSpan="2" onClick={this.showCalendar.bind(this)}>Close</td>
-          </tr>
         </tbody>
       </table>
+      <div className="calendar-footer">
+      <span className={styles.calClearDates} onClick={this.clearDates.bind(this)}>Clear dates</span>
+      <span  className={styles.calClose} onClick={this.showCalendar.bind(this)}>Close</span>
+      </div>
     </div>)
     } else {
       calendar;
@@ -195,9 +202,19 @@ class Calendar extends React.Component {
 
 
     return (
-      <div>
-        <div onClick={this.showCalendar.bind(this)}>
-          <span>{this.state.checkIn}</span> | <span>{this.state.checkOut}</span>
+      <div >
+
+        <div className={styles.checkContainer} onClick={this.showCalendar.bind(this)}>
+          <div className={styles.checkInBox}>
+            <div className={styles.guestsLabel}>CHECK-IN</div>
+            <div className={styles.guestsCount}>{this.state.checkIn}</div>
+          </div>
+
+          <div className={styles.checkOutBox}>
+            <div className={styles.guestsLabel}>CHECKOUT</div>
+            <div className={styles.guestsCount}>{this.state.checkOut}</div>
+          </div>
+
         </div>
         {calendar}
 
