@@ -105,8 +105,10 @@ class App extends React.Component {
     // onClick={()=>{this.reserve(this.state.info)}}
 
     return (<div className={styles.calendarForm}>
+      <div className='top-bar'>
       <span> <span className={styles.nightlyFee}>${this.state.info.nightly_fee}</span> / night</span>
       <span className={styles.reviewsRating}> <span className={styles.star}>&#9733;</span> {Math.round(this.state.info.avg_rating * 100)/100} ({this.state.info.reviews})</span>
+      </div>
       <form onSubmit={this.reserve.bind(this)}>
         <div className={styles.checkinGuestsContainer}>
       <Calendar updateNights={this.updateNights.bind(this)} buttonReserve={this.buttonReserve.bind(this)} ref={this.calendarElement}/>

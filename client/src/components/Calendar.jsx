@@ -191,8 +191,10 @@ class Calendar extends React.Component {
           {trElems}
         </tbody>
       </table>
+      <div className="calendar-footer">
       <span className={styles.calClearDates} onClick={this.clearDates.bind(this)}>Clear dates</span>
       <span  className={styles.calClose} onClick={this.showCalendar.bind(this)}>Close</span>
+      </div>
     </div>)
     } else {
       calendar;
