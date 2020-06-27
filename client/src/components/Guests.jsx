@@ -8,8 +8,7 @@ class Guests extends React.Component {
     super(props);
 
     this.state = {
-      expand: false,
-      guests: 1,
+      guests: 1
     }
 
     this.handleClick = this.handleClick.bind(this);
@@ -74,9 +73,7 @@ class Guests extends React.Component {
   toggleExpandState(event) {
     event.preventDefault();
 
-    this.setState({
-      expand: !this.state.expand
-    })
+    this.props.showGuestsOptions();
   }
 
   render() {
@@ -93,9 +90,9 @@ class Guests extends React.Component {
       infants;
     }
 
-    if (this.state.expand) {
+    if (this.props.showGuestsState) {
       chevron = <span className='chevron chev-up'><SVG src={Chevron} /> </span>
-    } else if (!this.state.expand) {
+    } else if (!this.props.showGuestsState) {
       chevron = <span className='chevron'><SVG src={Chevron} /> </span>
     }
 
@@ -111,7 +108,7 @@ class Guests extends React.Component {
         </div>)
     }
 
-    if (this.state.expand) {
+    if (this.props.showGuestsState) {
       expand = (
         <div className="expand">
 
@@ -154,7 +151,7 @@ class Guests extends React.Component {
           {this.props.max} guests maximum. Infants don't count toward the number of guests.
         </div>
 
-        <div className="guestsClose" onClick={this.toggleExpandState}>
+        <div className="guestsClose" onClick={this.props.showGuestsOptions}>
           Close
         </div>
       </div>
