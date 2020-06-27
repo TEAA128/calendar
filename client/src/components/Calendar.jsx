@@ -12,7 +12,9 @@ class Calendar extends React.Component {
       dateContext: moment(),
       today: moment(),
       pickDate: 0,
-      showCalendar: false
+      showCalendar: false,
+      firstDate: '',
+      secondDate: ''
     }
 
     this.weekdays = moment.weekdays();
@@ -64,7 +66,7 @@ class Calendar extends React.Component {
     const dateFormat = `${monthFormat}/${date}/${year}`;
     const fullDate = `${month.substring(0, 3)} ${date}, ${year}`;
 
-    if (this.state.pickDate === 0) {
+    if (this.state.pickDate === 0 || this.state.pickDate === 2) {
       this.setState({
         pickDate: 1,
         firstDate: fullDate
@@ -73,15 +75,32 @@ class Calendar extends React.Component {
     } else if (this.state.pickDate === 1) {
       this.setState({
         pickDate: 2,
-        secondDate: fullDate
+        secondDate: fullDate,
+        showCalendar: false
       })
       this.props.updateCheckOut(dateFormat);
     }
   }
 
+  crossOutPrevDates(month, year, day) {
+    let inputDay = new Date(`${month} ${day}, ${year}`)
+    let firstDate = new Date(this.state.firstDate);
+
+    if (this.state.secondDate) {
+      return false;
+    }
+
+    if (inputDay.getTime() < firstDate.getTime()) {
+      return true;
+    }
+    return false;
+  }
+
   clearDates() {
     this.setState({
-      pickDate: 0
+      pickDate: 0,
+      firstDate: '',
+      secondDate: ''
     })
     this.props.clearDates();
   }
@@ -91,6 +110,21 @@ class Calendar extends React.Component {
     this.setState({
       showCalendar: !this.state.showCalendar
     })
+  }
+
+  checkBookedDates(day, month, year) {
+    let ranges = [];
+    let inputDay = new Date(`${month} ${day}, ${year}`)
+
+    for (let i = 0; i < this.props.bookings.length; i++) {
+      let checkIn = new Date(this.props.bookings[i].checkin);
+      let checkOut = new Date(this.props.bookings[i].checkout);
+
+      if (inputDay >= checkIn.getTime() && inputDay <= checkOut.getTime()) {
+        return true;
+      }
+    }
+    return false;
   }
 
   render() {
@@ -110,12 +144,33 @@ class Calendar extends React.Component {
     let daysInMonth = [];
 
     for (let d = 1; d <= this.daysInMonth(); d++) {
+      let currentDayDate = new Date(this.state.today);
+      let date = new Date(`${this.month()} ${d}, ${this.year()}`);
       let className = (d == this.currentDay() ? "day current-day": "day");
-      daysInMonth.push(
-        <td key={d*10} className={className}>
-          <span onClick={()=>{this.pickDate(this.month(), this.year(), d)}}>{d}</span>
+      let unavailableDate = (
+        <td key={d*10} className={`${styles.day} ${styles.crossOutDate}`}>
+          <span>{d}</span>
         </td>
-      )
+      );
+
+      let availableDate = (
+        <td key={d*10} className={className} onClick={()=>{this.pickDate(this.month(), this.year(), d)}}>
+          <span>{d}</span>
+        </td>
+      );
+
+      let dateRender;
+
+
+
+      // cross out all dates prior to current date and all booked dates
+      if (date.getTime() < currentDayDate.getTime() || this.checkBookedDates(d, this.month(), this.year()) || this.crossOutPrevDates(d, this.month(), this.year()) ) {
+        dateRender = unavailableDate;
+      } else {
+        dateRender = availableDate;
+      }
+
+      daysInMonth.push(dateRender);
     }
 
     var totalSlots = [...blanks, ...daysInMonth];

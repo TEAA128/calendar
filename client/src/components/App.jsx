@@ -27,6 +27,15 @@ class App extends React.Component {
                     },
                     checkin: "2020-08-08T02:54:27.836Z",
                     checkout: "2020-08-12T18:15:39.123Z"
+                  },
+                  {
+                    guests: {
+                      adults: 2,
+                      children: 1,
+                      infants: 0
+                    },
+                    checkin: "2020-07-08T02:54:27.836Z",
+                    checkout: "2020-07-12T18:15:39.123Z"
                   }
               ],
             },
@@ -78,7 +87,8 @@ class App extends React.Component {
 
   updateCheckIn(date) {
     this.setState({
-      checkIn: date
+      checkIn: date,
+      checkOut: 'Add date'
     })
   }
 
@@ -137,7 +147,7 @@ class App extends React.Component {
       <form onSubmit={this.reserve.bind(this)}>
         <div className={styles.checkinGuestsContainer}>
 
-      <Calendar calculateNights={this.calculateNights.bind(this)} clearDates={this.clearDates.bind(this)} checkIn={this.state.checkIn} checkOut={this.state.checkOut} updateCheckIn={this.updateCheckIn.bind(this)} updateCheckOut={this.updateCheckOut.bind(this)} ref={this.calendarElement}/>
+      <Calendar bookings={this.state.info.bookings} calculateNights={this.calculateNights.bind(this)} clearDates={this.clearDates.bind(this)} checkIn={this.state.checkIn} checkOut={this.state.checkOut} updateCheckIn={this.updateCheckIn.bind(this)} updateCheckOut={this.updateCheckOut.bind(this)} ref={this.calendarElement}/>
 
       <Guests updateGuests={this.updateGuests.bind(this)} adults={this.state.adults} children={this.state.children} infants={this.state.infants} max={this.state.info.max_capacity} />
       </div>
