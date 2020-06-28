@@ -136,10 +136,14 @@ class Calendar extends React.Component {
 
     let daysInMonth = [];
 
+    let selectDate;
+
+
     for (let d = 1; d <= this.daysInMonth(); d++) {
       let currentDayDate = new Date(this.state.today);
       let date = new Date(`${this.month()} ${d}, ${this.year()}`);
-      let className = (d == this.currentDay() ? "day current-day": "day");
+      let dateSlashFormat = `${this.month().substring(0, 3)} ${d}, ${this.year()}`
+      let className = ((dateSlashFormat === this.state.firstDate) || (dateSlashFormat === this.state.secondDate) ? "day select-date": "day");
       let unavailableDate = (
         <td key={d*10} className={`${styles.day} ${styles.crossOutDate}`}>
           <span>{d}</span>
