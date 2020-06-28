@@ -151,8 +151,8 @@ class Guests extends React.Component {
           {this.props.max} guests maximum. Infants don't count toward the number of guests.
         </div>
 
-        <div className="guestsClose" onClick={this.props.showGuestsOptions}>
-          Close
+        <div onClick={this.props.showGuestsOptions}>
+          <span className="guestsClose" >Close</span>
         </div>
       </div>
       )

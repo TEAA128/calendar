@@ -48,7 +48,6 @@ class App extends React.Component {
       showGuestsOptions: false
     }
 
-    this.calendarElement = React.createRef();
   }
 
   showCalendar() {
@@ -96,7 +95,9 @@ class App extends React.Component {
 
   handleClick(event) {
     event.preventDefault();
-    this.calendarElement.current.showCalendar();
+    this.setState({
+      showCalendar: true
+    })
   }
 
   updateCheckIn(date) {

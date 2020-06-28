@@ -214,6 +214,8 @@ class Calendar extends React.Component {
 
     if (this.state.firstDate && this.state.secondDate && this.props.checkOut !== 'Add date') {
       dateRange = `${this.state.firstDate} - ${this.state.secondDate}`;
+    } else {
+      dateRange = 'Add your travel dates for exact pricing'
     }
 
     let calendar;
