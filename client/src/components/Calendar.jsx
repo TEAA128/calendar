@@ -144,6 +144,7 @@ class Calendar extends React.Component {
       let date = new Date(`${this.month()} ${d}, ${this.year()}`);
       let dateSlashFormat = `${this.month().substring(0, 3)} ${d}, ${this.year()}`
       let className = ((dateSlashFormat === this.state.firstDate) || (dateSlashFormat === this.state.secondDate) ? "day select-date": "day");
+
       let unavailableDate = (
         <td key={d*10} className={`${styles.day} ${styles.crossOutDate}`}>
           <span>{d}</span>
