@@ -5,40 +5,14 @@ import Guests from './Guests.jsx';
 import PriceBreakDown from './PriceBreakDown.jsx';
 import styles from '../../dist/style.css';
 
+const placeID = Number((window.location.pathname).slice(1, window.location.pathname.length-1));
+
 class App extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      info: {id: 2,
-            nightly_fee: 244,
-            cleaning_fee: 56,
-            occupancy_tax_rate: 0.09,
-            avg_rating: 0.8785097298603173,
-            reviews: 372,
-            city: "Travonmouth",
-            max_capacity: 5,
-            bookings: [
-                  {
-                    guests: {
-                      adults: 2,
-                      children: 1,
-                      infants: 0
-                    },
-                    checkin: "2020-08-08T02:54:27.836Z",
-                    checkout: "2020-08-12T18:15:39.123Z"
-                  },
-                  {
-                    guests: {
-                      adults: 2,
-                      children: 1,
-                      infants: 0
-                    },
-                    checkin: "2020-07-08T02:54:27.836Z",
-                    checkout: "2020-07-12T18:15:39.123Z"
-                  }
-              ],
-            },
+      info: {},
       checkIn: 'Add date',
       checkOut: 'Add date',
       adults: 1,
@@ -47,7 +21,51 @@ class App extends React.Component {
       showCalendar: false,
       showGuestsOptions: false
     }
+  }
 
+
+  componentDidMount() {
+    this.getData();
+  }
+
+  getData() {
+    $.ajax({
+      url: `/api/${placeID}`,
+      type: 'GET',
+      success: (data) => {
+        console.log(data[0]);
+        this.setState({
+          info: data[0]
+        })
+      },
+      error: (err) => {
+        console.log('ERROR RETRIEVING BLOGS');
+      }
+    })
+  }
+
+  reserve() {
+    let reservation = {
+      guests: {
+        adults: this.state.adults,
+        children: this.state.children,
+        infants: this.state.infants
+      },
+      checkin: this.state.checkIn,
+      checkout: this.state.checkOut
+    }
+
+    $.ajax({
+      url: `/api/${placeID}`,
+      type: 'PATCH',
+      data: JSON.stringify(reservation),
+      success: (data) => {
+        console.log('success PATCH, data is: ', data);
+      },
+      error: (err) => {
+        console.log('ERROR PATCHING BLOGS');
+      }
+    })
   }
 
   showCalendar() {
@@ -60,36 +78,6 @@ class App extends React.Component {
   showGuestsOptions() {
     this.setState({
       showGuestsOptions: !this.state.showGuestsOptions
-    })
-  }
-  // componentDidMount() {
-  //   this.getData();
-  // }
-
-  getData(aptID) {
-    $.ajax({
-      url: `/api/${aptID}`,
-      type: 'GET',
-      success: (data) => {
-        console.log('success GET, data is: ', data);
-      },
-      error: (err) => {
-        console.log('ERROR RETRIEVING BLOGS');
-      }
-    })
-  }
-
-  reserve(obj) {
-    $.ajax({
-      url: `/api/${aptID}`,
-      type: 'PATCH',
-      data: JSON.stringify(obj),
-      success: (data) => {
-        console.log('success PATCH, data is: ', data);
-      },
-      error: (err) => {
-        console.log('ERROR PATCHING BLOGS');
-      }
     })
   }
 
@@ -147,12 +135,13 @@ class App extends React.Component {
     let reserve = this.state.checkIn !== 'Add date' && this.state.checkOut !== 'Add date';
 
     if (reserve) {
-      button = <div className={styles.pinkButton}>Reserve</div>
+      button = <div className={styles.pinkButton} onClick={this.reserve.bind(this)}>Reserve</div>
       price = <PriceBreakDown info={this.state.info} calculateNights={this.calculateNights.bind(this)} />
     } else {
       button = <div className={styles.pinkButton} onClick={this.handleClick.bind(this)}>Check availability</div>
       price;
     }
+
 
     return (<div className={styles.calendarForm}>
       <div className='top-bar'>

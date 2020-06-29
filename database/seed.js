@@ -9,18 +9,18 @@ for (let i = 1; i <= 100; i++) {
     id: i,
     nightly_fee: Math.ceil(Math.random() * 300) + 60,
     cleaning_fee: Math.ceil(Math.random() * 60) + 20,
-    service_fee: Math.ceil(Math.random() * 60) + 20,
-    occupancy_tax_fees: Math.floor(Math.random() * 30),
-    avg_rating: (Math.random() * 5),
+    occupancy_tax_rate: (Math.round((Math.random()*.05)*1000)/1000) + .08,
+    avg_rating: Math.round((Math.random() * 5) * 100)/100,
     reviews: (Math.floor(Math.random() * 1000)),
     city: faker.address.city(),
+    max_capacity: 5,
     bookings: [{
       checkin: faker.date.between('2020-08-08', '2020-08-10'),
-      checkout: faker.date.between('2020-08-15', '2020-08-10'),
+      checkout: faker.date.between('2020-08-10', '2020-08-15'),
       guests: {
-        adults: Math.ceil(Math.random() * 2),
-        children: Math.floor(Math.random() * 2),
-        infants: Math.floor(Math.random())
+        adults: 2,
+        children: 3,
+        infants: 2
       }
     }]
   }

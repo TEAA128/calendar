@@ -109,7 +109,9 @@ class Calendar extends React.Component {
     let ranges = [];
     let inputDay = new Date(`${month} ${day}, ${year}`)
 
-    for (let i = 0; i < this.props.bookings.length; i++) {
+    let bookings = this.props.bookings || [];
+
+    for (let i = 0; i < bookings.length; i++) {
       let checkIn = new Date(this.props.bookings[i].checkin);
       let checkOut = new Date(this.props.bookings[i].checkout);
 
@@ -119,6 +121,8 @@ class Calendar extends React.Component {
     }
     return false;
   }
+
+
 
   render() {
     let weekdays = this.weekdaysShort.map((day) => {
@@ -143,7 +147,8 @@ class Calendar extends React.Component {
       let currentDayDate = new Date(this.state.today);
       let date = new Date(`${this.month()} ${d}, ${this.year()}`);
       let dateSlashFormat = `${this.month().substring(0, 3)} ${d}, ${this.year()}`
-      let className = ((dateSlashFormat === this.state.firstDate) || (dateSlashFormat === this.state.secondDate) ? "day select-date": "day");
+      let isFirstOrSecondDate = (dateSlashFormat === this.state.firstDate) || (dateSlashFormat === this.state.secondDate);
+      let className = (isFirstOrSecondDate ? "day select-date": "day");
 
       let unavailableDate = (
         <td key={d*10} className={`${styles.day} ${styles.crossOutDate}`}>
