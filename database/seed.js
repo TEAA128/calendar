@@ -13,7 +13,7 @@ for (let i = 1; i <= 100; i++) {
     avg_rating: Math.round((Math.random() * 5) * 100)/100,
     reviews: (Math.floor(Math.random() * 1000)),
     city: faker.address.city(),
-    max_capacity: 5,
+    max_capacity: Math.ceil(Math.random() * 9) + 1,
     bookings: [{
       checkin: faker.date.between('2020-08-08', '2020-08-10'),
       checkout: faker.date.between('2020-08-10', '2020-08-15'),
