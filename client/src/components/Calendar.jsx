@@ -192,6 +192,18 @@ class Calendar extends React.Component {
     return false;
   }
 
+  checkBetweenBookedDates(day, month, year) {
+    let inputDay = new Date(`${month} ${day}, ${year}`);
+    let firstDay = new Date(this.state.firstDate);
+    let secondDay = new Date(this.state.secondDate);
+
+    if (inputDay.getTime() > firstDay.getTime() && inputDay.getTime() < secondDay.getTime()) {
+      return true;
+    }
+
+    return false;
+  }
+
 
   calendar(cal) {
     let blanks = [];
@@ -217,11 +229,21 @@ class Calendar extends React.Component {
         </td>
       );
 
-      let availableDate = (
-        <td key={d*10} className={className} onClick={()=>{this.pickDate(this.month(cal), this.year(cal), d)}}>
-          <span>{d}</span>
-        </td>
-      );
+      let availableDate;
+
+      if (this.state.firstDate && this.state.secondDate && this.checkBetweenBookedDates(d, this.month(cal), this.year(cal))) {
+        availableDate = (
+          <td key={d*10} className={`${className} ${styles.highlight}`} onClick={()=>{this.pickDate(this.month(cal), this.year(cal), d)}}>
+            <span>{d}</span>
+          </td>
+        );
+      } else {
+        availableDate = (
+          <td key={d*10} className={className} onClick={()=>{this.pickDate(this.month(cal), this.year(cal), d)}}>
+            <span>{d}</span>
+          </td>
+        );
+      }
 
       let dateRender;
 
