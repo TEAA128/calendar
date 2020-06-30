@@ -91,68 +91,68 @@ class Guests extends React.Component {
     }
 
     if (this.props.showGuestsState) {
-      chevron = <span className='chevron chev-up'><SVG src={Chevron} /> </span>
+      chevron = <span className={`${styles.chevron} ${styles.chevUp}`}><SVG src={Chevron} /> </span>
     } else if (!this.props.showGuestsState) {
-      chevron = <span className='chevron'><SVG src={Chevron} /> </span>
+      chevron = <span className={styles.chevron}><SVG src={Chevron} /> </span>
     }
 
     if (this.state.guests === 1) {
-      button = (<div className="guests" onClick={this.toggleExpandState}>
-        <div className="guestsLabel">GUESTS {chevron}</div>
-        <div className="guestsCount"> {this.state.guests} guest{infants}</div>
+      button = (<div className={styles.guests} onClick={this.toggleExpandState}>
+        <div className={styles.guestsLabel}>GUESTS {chevron}</div>
+        <div className={styles.guestsCount}> {this.state.guests} guest{infants}</div>
         </div>)
     } else {
-      button = (<div className="guests" onClick={this.toggleExpandState}>
-        <div className="guestsLabel">GUESTS {chevron}</div>
-        <div className="guestsCount">{this.state.guests} guests{infants}</div>
+      button = (<div className={styles.guests} onClick={this.toggleExpandState}>
+        <div className={styles.guestsLabel}>GUESTS {chevron}</div>
+        <div className={styles.guestsCount}>{this.state.guests} guests{infants}</div>
         </div>)
     }
 
     if (this.props.showGuestsState) {
       expand = (
-        <div className="expand">
+        <div className={styles.expand}>
 
-          <div className="padding">
-            <div className='guest-description'>
-              <div className="bold">Adults</div>
+          <div className={styles.padding}>
+            <div className={styles.guestDescription}>
+              <div className={styles.bold}>Adults</div>
             </div>
-            <div className="guestCounter adult">
-              <span className="plusMinus minus" onClick={(event) => {this.handleClick(event, 'minus', 'adults')}}> - </span>
+            <div className={`${styles.guestCounter} ${styles.adult}`}>
+              <span className={`${plusMinus} ${minus}`} onClick={(event) => {this.handleClick(event, 'minus', 'adults')}}> - </span>
                 {this.props.adults}
-              <span className="plusMinus plus" onClick={(event) => {this.handleClick(event, 'plus', 'adults')}}> + </span>
+              <span className={`${plusMinus} ${plus}`} onClick={(event) => {this.handleClick(event, 'plus', 'adults')}}> + </span>
             </div>
           </div>
 
-        <div className="padding">
-          <div className='guest-description'>
-            <div className="bold">Children</div>
-            <div className="ages">Ages 2-12</div>
+        <div className={styles.padding}>
+          <div className={styles.guestDescription}>
+            <div className={styles.bold}>Children</div>
+            <div className={styles.ages}>Ages 2-12</div>
           </div>
-          <div className="guestCounter">
-            <span className="plusMinus minus" onClick={(event)=> {this.handleClick(event, 'minus', 'children')}}>  -  </span>
+          <div className={styles.guestCounter}>
+            <span className={`${styles.plusMinus} ${styles.minus}`} onClick={(event)=> {this.handleClick(event, 'minus', 'children')}}>  -  </span>
               {this.props.children}
-            <span className='plusMinus plus' onClick={(event)=> {this.handleClick(event, 'plus', 'children')}}> + </span>
+            <span className={`${styles.plusMinus} ${styles.plus}`} onClick={(event)=> {this.handleClick(event, 'plus', 'children')}}> + </span>
           </div>
         </div>
 
-        <div className="padding">
-          <div className='guest-description'>
-            <div className="bold">Infants</div>
-            <div className="ages">Under 2</div>
+        <div className={styles.padding}>
+          <div className={styles.guestDescription}>
+            <div className={styles.bold}>Infants</div>
+            <div className={styles.ages}>Under 2</div>
           </div>
-          <div className='guestCounter'>
-          <span className='plusMinus minus' onClick={(event)=> {this.handleClickInfant(event, 'minus')}}> - </span>
+          <div className={styles.guestCounter}>
+          <span className={`${plusMinus} ${minus}`} onClick={(event)=> {this.handleClickInfant(event, 'minus')}}> - </span>
             {this.props.infants}
-          <span className='plusMinus plus' onClick={(event)=> {this.handleClickInfant(event, 'plus')}}> + </span>
+          <span className={`${plusMinus} ${plus}`} onClick={(event)=> {this.handleClickInfant(event, 'plus')}}> + </span>
           </div>
         </div>
 
-        <div className='fadedText'>
+        <div className={styles.fadedText}>
           {this.props.max} guests maximum. Infants don't count toward the number of guests.
         </div>
 
         <div onClick={this.props.showGuestsOptions}>
-          <span className="guestsClose" >Close</span>
+          <span className={styles.guestsClose} >Close</span>
         </div>
       </div>
       )

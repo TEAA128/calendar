@@ -147,7 +147,7 @@ class App extends React.Component {
 
 
     return (<div className={styles.calendarForm}>
-      <div className='top-bar'>
+      <div className={styles.topBar}>
       <span> <span className={styles.nightlyFee}>${this.state.info.nightly_fee}</span> / night</span>
       <span className={styles.reviewsRating}> <span className={styles.star}>&#9733;</span> {Math.round(this.state.info.avg_rating * 100)/100} ({this.state.info.reviews})</span>
       </div>

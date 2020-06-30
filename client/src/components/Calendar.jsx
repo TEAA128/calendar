@@ -196,7 +196,7 @@ class Calendar extends React.Component {
   calendar(cal) {
     let blanks = [];
     for (let i = 0; i < this.firstDayOfMonth(cal); i++) {
-      blanks.push(<td key={i * 80} className="emptySlot">
+      blanks.push(<td key={i * 80}>
         {""}
       </td>);
     }
@@ -209,7 +209,7 @@ class Calendar extends React.Component {
       let date = new Date(`${this.month(cal)} ${d}, ${this.year(cal)}`);
       let dateSlashFormat = `${this.month(cal).substring(0, 3)} ${d}, ${this.year(cal)}`
       let isFirstOrSecondDate = (dateSlashFormat === this.state.firstDate) || (dateSlashFormat === this.state.secondDate);
-      let className = (isFirstOrSecondDate ? "day select-date": "day");
+      let className = (isFirstOrSecondDate ? `${styles.day} ${styles.selectDate}`: styles.day);
 
       let unavailableDate = (
         <td key={d*10} className={`${styles.day} ${styles.crossOutDate}`}>
@@ -270,7 +270,7 @@ class Calendar extends React.Component {
 
     let weekdays = this.weekdaysShort.map((day) => {
       return (
-        <td key={day} className="week-day">{day.substring(0,2)}</td>
+        <td key={day}>{day.substring(0,2)}</td>
       )
     });
 
@@ -299,7 +299,7 @@ class Calendar extends React.Component {
     let calendar;
     if (this.props.showCalendarState) {
       calendar = (
-      <div className="calendar-container">
+      <div className={styles.calendarContainer}>
         <div className={styles.selectDates}>
           {numberNights}
         </div>
@@ -310,7 +310,7 @@ class Calendar extends React.Component {
       <div className={styles.firstCal}>
       <table className={styles.calendarTable}>
         <thead>
-          <tr className="calendar-header">
+          <tr>
             <td onClick={this.onBackClick.bind(this)} className={styles.rotateLeft}><SVG src={Chevron} /></td>
             <td colSpan="5" className={styles.calendarTitle}>{this.month('first')} {this.year('first')}</td>
           </tr>
@@ -326,7 +326,7 @@ class Calendar extends React.Component {
       <div className={styles.secondCal}>
       <table className={styles.calendarTable}>
         <thead>
-          <tr className="calendar-header">
+          <tr>
             <td colSpan="6" className={styles.calendarTitle}>{this.month('second')} {this.year('second')}</td>
             <td onClick={this.onForwardClick.bind(this)} className={styles.rotateRight}><SVG src={Chevron} /></td>
           </tr>
@@ -339,7 +339,7 @@ class Calendar extends React.Component {
         </tbody>
       </table>
       </div>
-      <div className="calendar-footer">
+      <div className={styles.calendarFooter}>
       <span className={styles.calClearDates} onClick={this.clearDates.bind(this)}>Clear dates</span>
       <span  className={styles.calClose} onClick={this.props.showCalendar}>Close</span>
       </div>
