@@ -117,9 +117,9 @@ class Guests extends React.Component {
               <div className={styles.bold}>Adults</div>
             </div>
             <div className={`${styles.guestCounter} ${styles.adult}`}>
-              <span className={`${plusMinus} ${minus}`} onClick={(event) => {this.handleClick(event, 'minus', 'adults')}}> - </span>
+              <span className={`${styles.plusMinus} ${styles.minus}`} onClick={(event) => {this.handleClick(event, 'minus', 'adults')}}> - </span>
                 {this.props.adults}
-              <span className={`${plusMinus} ${plus}`} onClick={(event) => {this.handleClick(event, 'plus', 'adults')}}> + </span>
+              <span className={`${styles.plusMinus} ${styles.plus}`} onClick={(event) => {this.handleClick(event, 'plus', 'adults')}}> + </span>
             </div>
           </div>
 
@@ -141,9 +141,9 @@ class Guests extends React.Component {
             <div className={styles.ages}>Under 2</div>
           </div>
           <div className={styles.guestCounter}>
-          <span className={`${plusMinus} ${minus}`} onClick={(event)=> {this.handleClickInfant(event, 'minus')}}> - </span>
+          <span className={`${styles.plusMinus} ${styles.minus}`} onClick={(event)=> {this.handleClickInfant(event, 'minus')}}> - </span>
             {this.props.infants}
-          <span className={`${plusMinus} ${plus}`} onClick={(event)=> {this.handleClickInfant(event, 'plus')}}> + </span>
+          <span className={`${styles.plusMinus} ${styles.plus}`} onClick={(event)=> {this.handleClickInfant(event, 'plus')}}> + </span>
           </div>
         </div>
 
