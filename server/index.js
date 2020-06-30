@@ -8,7 +8,7 @@ const Calendar = require('../database/Calendar.js');
 const app = express();
 const port = 3001;
 
-app.use('/:placeID', express.static(__dirname + '/../client/dist'));
+app.use('/calendar/', express.static(__dirname + '/../client/dist'));
 
 app.use(bodyParser.urlencoded({extended: true}));
 

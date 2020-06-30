@@ -5,7 +5,7 @@ import Guests from './Guests.jsx';
 import PriceBreakDown from './PriceBreakDown.jsx';
 import styles from '../../dist/style.css';
 
-const placeID = Number((window.location.pathname).slice(1, window.location.pathname.length-1));
+const placeID = Math.ceil(Math.random() * 100);
 
 class App extends React.Component {
   constructor() {
