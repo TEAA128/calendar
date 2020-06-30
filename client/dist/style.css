@@ -1,0 +1,362 @@
+.calendarForm {
+  padding: 23px;
+  max-width: 320px;
+  font-family: 'Nunito Sans', sans-serif;
+  border-radius: 10px;
+  box-shadow: 1px 2px 18px 0px #ccc;
+}
+
+.nightlyFee {
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.reviewsRating {
+  color: grey;
+  font-size: 14px;
+  float: right;
+}
+
+.star {
+  color: #FF385C;
+}
+
+.pinkButton {
+  background-color: #D70466;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+.pinkButton:hover {
+  cursor: pointer;
+}
+
+.guests {
+  border: 1px solid grey;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding: 8px;
+  border-top: none;
+}
+.guests:hover {
+  cursor: pointer;
+}
+
+.guestsLabel {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.guestsCount {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+ /* Calendar component */
+
+ .checkContainer {
+  border: 1px solid grey;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  display: table;
+  min-width: -webkit-fill-available;
+ }
+ .checkContainer:hover {
+   cursor: pointer;
+ }
+
+ .checkInBox {
+   border-right: 1px solid grey;
+   display: table-cell;
+   padding: 8px;
+ }
+
+ .checkOutBox {
+   display: table-cell;
+   padding: 8px;
+ }
+
+ /* .checkinGuestsContainer {
+   border: 1px solid grey;
+   border-radius: 8px;
+   margin-bottom: 14px;
+ } */
+
+ .expand {
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 1px 2px 18px 0px #ccc;
+  border: 1px solid #ccc;
+  position: fixed;
+  background-color: white;
+  max-width: 290px;
+ }
+
+ .plusMinus {
+  display: inline-block;
+  border: 1px solid grey;
+  color: grey;
+  border-radius: 100%;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  margin: 3px;
+  vertical-align: middle;
+  font-weight: bold;
+ }
+ .plusMinus:hover {
+   cursor: pointer;
+   color: black;
+   border: 1px solid black;
+ }
+
+ .minus {
+   margin-right: 12px;
+ }
+
+ .plus {
+   margin-left: 12px;
+ }
+
+ .guestCounter {
+   display: table-cell;
+   vertical-align: middle;
+   text-align: end;
+ }
+
+ .guestDescription {
+   display: table-cell;
+ }
+
+ .adult {
+   vertical-align: initial;
+ }
+
+ .fadedText {
+   padding-top: 8px;
+   padding-bottom: 8px;
+   color: grey;
+   font-size: 14px;
+ }
+
+ .guestsClose {
+   float: right;
+   font-weight: bold;
+   text-decoration: underline;
+   background-color: white;
+   padding: 6px;
+   border-radius: 6px;
+ }
+ .guestsClose:hover {
+  cursor: pointer;
+  background-color: rgb(245, 245, 245);
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.padding {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: 100%;
+  display: table;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.ages {
+  font-size: 14px;
+}
+
+.selectDates {
+  font-size: 20px;
+  font-weight: 600;
+  padding-left: 12px;
+}
+
+.rotateRight {
+  transform: rotate(270deg);
+  width: 35px;
+  height: 35px;
+  border: 1px solid white;
+  border-radius: 100%;
+  background-color: white;
+}
+.rotateRight:hover {
+  cursor: pointer;
+  border: 1px solid rgb(241, 240, 240);
+  border-radius: 100%;
+  background-color: rgb(241, 240, 240);
+}
+
+.rotateLeft {
+  transform: rotate(90deg);
+  width: 35px;
+  height: 35px;
+  border: 1px solid white;
+  border-radius: 100%;
+  background-color: white;
+}
+.rotateLeft:hover {
+  cursor: pointer;
+  border: 1px solid rgb(241, 240, 240);
+  border-radius: 100%;
+  background-color: rgb(241, 240, 240);
+}
+
+.calendarTitle {
+  text-align: center;
+  font-weight: 600;
+}
+
+.calClearDates {
+  text-decoration: underline;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right;
+  background-color: white;
+  padding: 6px;
+  border-radius: 6px;
+}
+.calClearDates:hover {
+  cursor: pointer;
+  background-color: rgb(245, 245, 245);
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.calClose {
+  font-size: 14px;
+  text-align: right;
+  border: 1px solid rgb(34, 34, 34);
+  background-color: rgb(34, 34, 34);
+  color: white;
+  border-radius: 6px;
+  padding: 4px 10px;
+  margin-left: 8px;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+.calClose:hover {
+  border: 1px solid black;
+  background-color: black;
+  cursor: pointer;
+}
+
+.calendarFooter {
+  text-align: right;
+  padding-right: 13px;
+  padding-bottom: 15px;
+}
+.calendarTable {
+  width: 100%;
+  border-spacing: 0px 2px;
+}
+
+.youWontBeCharged {
+  text-align: center;
+  font-size: 14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.priceNumbers {
+  float: right;
+}
+
+.total {
+  font-weight: bold;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  border-top: 1px solid lightgrey;
+}
+
+.priceDescription {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.calendarContainer {
+  border-radius: 5px;
+  box-shadow: 1px 2px 18px 0px #ccc;
+  position: fixed;
+  background-color: white;
+  padding: 20px;
+}
+
+.topBar {
+  padding-bottom: 8px;
+}
+
+.chevron {
+  float: right;
+  padding-top: 8px;
+  padding-right: 8px;
+}
+
+.chevUp {
+  transform: rotate(180deg);
+  padding-bottom: 8px;
+  padding-left: 8px;
+}
+
+.day {
+  font-size: 13px;
+  font-weight: 600;
+  height: 35px;
+  width: 35px;
+  border: 2px solid white;
+  border-radius: 50%;
+  text-align: center;
+}
+.day:hover {
+  cursor: pointer;
+  border: 2px solid black;
+  border-radius: 50%;
+}
+
+.crossOutDate {
+  color: lightgrey;
+  text-decoration: line-through;
+  pointer-events: none;
+}
+
+.selectDate {
+  background-color: black;
+  color: white;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.weekDay {
+  font-weight: 600;
+  color: grey;
+  font-size: 12px;
+  height: 35px;
+  text-align: center;
+}
+
+.dateRange {
+  color: grey;
+  font-size: 14px;
+  height: 20px;
+  padding: 12px;
+}
+
+.firstCal {
+  display: table-cell;
+  padding-right: 15px;
+}
+
+.secondCal {
+  display: table-cell;
+  padding-left: 15px;
+}
+
+.highlight {
+  background-color: rgb(241, 240, 240);
+}

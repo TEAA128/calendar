@@ -33,7 +33,7 @@ let patch = (placeID, obj) => {
 }
 
 
-
+// module.exports = Calendar;
 module.exports = {
   find,
   patch
