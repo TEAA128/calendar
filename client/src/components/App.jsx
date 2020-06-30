@@ -45,22 +45,25 @@ class App extends React.Component {
   }
 
   reserve() {
+    let checkindate = new Date(this.state.checkIn);
+    let checkoutdate = new Date(this.state.checkOut);
+
     let reservation = {
       guests: {
         adults: this.state.adults,
         children: this.state.children,
         infants: this.state.infants
       },
-      checkin: this.state.checkIn,
-      checkout: this.state.checkOut
+      checkin: checkindate.toISOString(),
+      checkout: checkoutdate.toISOString()
     }
 
     $.ajax({
       url: `/api/${placeID}`,
       type: 'PATCH',
-      data: JSON.stringify(reservation),
+      data: reservation,
       success: (data) => {
-        console.log('success PATCH, data is: ', data);
+        this.getData();
       },
       error: (err) => {
         console.log('ERROR PATCHING BLOGS');
