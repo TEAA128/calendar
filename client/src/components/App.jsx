@@ -39,7 +39,7 @@ class App extends React.Component {
         })
       },
       error: (err) => {
-        console.log('ERROR RETRIEVING BLOGS');
+        console.log('Error retrieving data');
       }
     })
   }
@@ -66,7 +66,7 @@ class App extends React.Component {
         this.getData();
       },
       error: (err) => {
-        console.log('ERROR PATCHING BLOGS');
+        console.log('Error patching data');
       }
     })
   }

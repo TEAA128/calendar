@@ -29,7 +29,6 @@ app.get('/api/:placeID', (req, res) => {
 app.patch('/api/:placeID', (req, res) => {
   const place = req.params.placeID;
   const add = req.body;
-  // res.send(req.body);
 
   Calendar.patch(place, add)
     .then((data) => {
