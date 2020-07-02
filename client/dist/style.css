@@ -10,12 +10,15 @@
 .nightlyFee {
   font-weight: bold;
   font-size: 22px;
+  display: table-cell;
 }
 
 .reviewsRating {
   color: grey;
   font-size: 14px;
   float: right;
+  display: table-cell;
+  padding-top: 6px;
 }
 
 .star {
@@ -351,13 +354,15 @@
   background-color: white;
   padding: 20px;
   right: -32px;
-  top: -10px;
+  top: -12px;
   z-index: 3;
   width: 660px;
 }
 
 .topBar {
-  padding-bottom: 8px;
+  padding-bottom: 12px;
+  display: table;
+  width: 100%
 }
 
 .chevron {
