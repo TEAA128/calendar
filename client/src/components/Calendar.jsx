@@ -292,7 +292,7 @@ class Calendar extends React.Component {
 
     let weekdays = this.weekdaysShort.map((day) => {
       return (
-        <td key={day}>{day.substring(0,2)}</td>
+        <td key={day} className={styles.weekDay}>{day.substring(0,2)}</td>
       )
     });
 
@@ -318,17 +318,53 @@ class Calendar extends React.Component {
       dateRange = 'Add your travel dates for exact pricing'
     }
 
+    let checkInClass;
+    let checkOutClass;
+
+    if (!this.state.firstDate && !this.state.secondDate) {
+      checkInClass = styles.highlightCheckin;
+      checkOutClass = styles.popUpCheckInBox;
+    }
+    if (this.state.firstDate && !this.state.secondDate) {
+      checkOutClass = styles.highlightCheckin;
+      checkInClass = styles.popUpCheckInBox;
+    }
+    if (this.state.secondDate && this.state.firstDate) {
+      checkInClass = styles.highlightCheckin;
+      checkOutClass = styles.popUpCheckInBox;
+    }
+
     let calendar;
     if (this.props.showCalendarState) {
       calendar = (
       <div className={styles.calendarContainer}>
+        <div className={styles.popUpCalTop}>
+        <div className={styles.popUpCalLeft}>
         <div className={styles.selectDates}>
           {numberNights}
         </div>
         <div className={styles.dateRange}>
           {dateRange}
         </div>
+        </div>
 
+        <table className={styles.popUpCheckContainer} onClick={this.props.showCalendar}>
+          <tr>
+            <td className={checkInClass}>
+              <div className={styles.guestsLabel}>CHECK-IN</div>
+              <div className={styles.guestsCount}>{this.props.checkIn}</div>
+            </td>
+
+            <td className={checkOutClass}>
+              <div className={styles.guestsLabel}>CHECKOUT</div>
+              <div className={styles.guestsCount}>{this.props.checkOut}</div>
+            </td>
+          </tr>
+        </table>
+
+        </div>
+
+      <div className={styles.doubleCal}>
       <div className={styles.firstCal}>
       <table className={styles.calendarTable}>
         <thead>
@@ -360,6 +396,7 @@ class Calendar extends React.Component {
           {this.calendar('second')}
         </tbody>
       </table>
+      </div>
       </div>
       <div className={styles.calendarFooter}>
       <span className={styles.calClearDates} onClick={this.clearDates.bind(this)}>Clear dates</span>

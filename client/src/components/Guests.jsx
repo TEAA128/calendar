@@ -1,6 +1,10 @@
 import React from 'react';
 import styles from '../../dist/style.css';
 import Chevron from './airbnb-chevron.svg';
+import PlusLight from './airbnb-plus-light.svg';
+import PlusDark from './airbnb-plus-dark.svg';
+import MinusLight from './airbnb-minus-light.svg';
+import MinusDark from './airbnb-minus-dark.svg';
 import SVG from 'react-inlinesvg';
 
 class Guests extends React.Component {
@@ -82,6 +86,60 @@ class Guests extends React.Component {
     let infants;
     let chevron;
 
+    let disabledPlus = (
+      <span className={`${styles.disabled}`}>  <SVG src={PlusLight} /> </span>
+    );
+    let disabledMinus = (
+      <span className={`${styles.disabled}`}>  <SVG src={MinusLight} /> </span>
+      );
+    let activePlus = (
+    <span className={`${styles.enabled}`} onClick={this.handleClick.bind(this)}>  <SVG src={PlusDark} /> </span>
+    );
+    let activeMinus = (
+      <span className={`${styles.enabled}`} onClick={this.handleClick.bind(this)}>  <SVG src={MinusDark} /> </span>
+    );
+
+    let adultsPlus;
+    let adultsMinus;
+    let childrenPlus;
+    let childrenMinus;
+    let infantsPlus;
+    let infantsMinus;
+
+    if (this.props.infants <= 0) {
+      infantsMinus = disabledMinus;
+    } else {
+      infantsMinus = (<span className={`${styles.enabled}`} onClick={(event)=>{this.handleClickInfant(event, 'minus')}}>  <SVG src={MinusDark} /> </span>);
+    }
+
+    if (this.props.infants >= 5) {
+      infantsPlus = disabledPlus;
+    } else {
+      infantsPlus = (<span className={`${styles.enabled}`} onClick={(event)=>{this.handleClickInfant(event, 'plus')}}>  <SVG src={PlusDark} /> </span>);
+    }
+
+    if (this.props.adults <= 1) {
+      adultsMinus = disabledMinus;
+    } else {
+      adultsMinus = (<span className={`${styles.enabled}`} onClick={(event)=>{this.handleClick(event, 'minus', 'adults')}}>  <SVG src={MinusDark} /> </span>);
+    }
+
+    if (this.props.children <= 0) {
+      childrenMinus = disabledMinus;
+    } else {
+      childrenMinus = (<span className={`${styles.enabled}`} onClick={(event)=>{this.handleClick(event, 'minus', 'children')}}>  <SVG src={MinusDark} /> </span>);
+    }
+
+    if (this.state.guests >= this.props.max) {
+      adultsPlus = disabledPlus;
+      childrenPlus = disabledPlus;
+    } else {
+      adultsPlus = (<span className={`${styles.enabled}`} onClick={(event)=>{this.handleClick(event, 'plus', 'adults')}}>  <SVG src={PlusDark} /> </span>);
+      childrenPlus = (<span className={`${styles.enabled}`} onClick={(event)=>{this.handleClick(event, 'plus', 'children')}}>  <SVG src={PlusDark} /> </span>);
+    }
+
+
+
     if (this.props.infants === 1) {
       infants = `, ${this.props.infants} infant`;
     } else if (this.props.infants > 1) {
@@ -117,9 +175,11 @@ class Guests extends React.Component {
               <div className={styles.bold}>Adults</div>
             </div>
             <div className={`${styles.guestCounter} ${styles.adult}`}>
-              <span className={`${styles.plusMinus} ${styles.minus}`} onClick={(event) => {this.handleClick(event, 'minus', 'adults')}}> - </span>
-                {this.props.adults}
-              <span className={`${styles.plusMinus} ${styles.plus}`} onClick={(event) => {this.handleClick(event, 'plus', 'adults')}}> + </span>
+
+                {adultsMinus}
+                <span className={styles.count}>{this.props.adults}</span>
+                {adultsPlus}
+
             </div>
           </div>
 
@@ -129,9 +189,9 @@ class Guests extends React.Component {
             <div className={styles.ages}>Ages 2-12</div>
           </div>
           <div className={styles.guestCounter}>
-            <span className={`${styles.plusMinus} ${styles.minus}`} onClick={(event)=> {this.handleClick(event, 'minus', 'children')}}>  -  </span>
-              {this.props.children}
-            <span className={`${styles.plusMinus} ${styles.plus}`} onClick={(event)=> {this.handleClick(event, 'plus', 'children')}}> + </span>
+            {childrenMinus}
+            <span className={styles.count}>{this.props.children}</span>
+            {childrenPlus}
           </div>
         </div>
 
@@ -141,9 +201,9 @@ class Guests extends React.Component {
             <div className={styles.ages}>Under 2</div>
           </div>
           <div className={styles.guestCounter}>
-          <span className={`${styles.plusMinus} ${styles.minus}`} onClick={(event)=> {this.handleClickInfant(event, 'minus')}}> - </span>
-            {this.props.infants}
-          <span className={`${styles.plusMinus} ${styles.plus}`} onClick={(event)=> {this.handleClickInfant(event, 'plus')}}> + </span>
+            {infantsMinus}
+            <span className={styles.count}>{this.props.infants}</span>
+            {infantsPlus}
           </div>
         </div>
 
@@ -152,7 +212,7 @@ class Guests extends React.Component {
         </div>
 
         <div onClick={this.props.showGuestsOptions}>
-          <span className={styles.guestsClose} >Close</span>
+          <span className={styles.guestsClose}>Close</span>
         </div>
       </div>
       )
