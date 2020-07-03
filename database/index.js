@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongoUri = 'mongodb://localhost/calendar';
+const mongoUri = 'mongodb://database/calendar';
 
 const db = mongoose.connect(mongoUri);
 

@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const db = require('../database');
 const path = require('path');
 const cors = require('cors');
+const Controller = require('./Controller.js');
 
 const Calendar = require('../database/Calendar.js');
 
@@ -13,31 +14,10 @@ app.use(cors());
 app.use('/calendar/', express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.urlencoded({extended: true}));
 
+
 // get request
-app.get('/api/:placeID', (req, res) => {
-  const place = req.params.placeID;
-
-  Calendar.find(place)
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      res.send(err);
-    })
-});
-
+app.get('/api/:placeID', Controller.find);
 // patch request
-app.patch('/api/:placeID', (req, res) => {
-  const place = req.params.placeID;
-  const add = req.body;
-
-  Calendar.patch(place, add)
-    .then((data) => {
-      res.send('patch success! (from server)');
-    })
-    .catch((err) => {
-      res.send(err);
-    })
-})
+app.patch('/api/:placeID', Controller.patch);
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));

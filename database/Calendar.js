@@ -24,18 +24,5 @@ let calendarSchema = new mongoose.Schema({
 
 let Calendar = mongoose.model('Calendar', calendarSchema);
 
-let find = (placeID) => {
-  return Calendar.find({id: placeID});
-}
-
-let patch = (placeID, obj) => {
-  return Calendar.update({id: placeID}, {$push: {bookings: obj}});
-}
-
-
-// module.exports = Calendar;
-module.exports = {
-  find,
-  patch
-}
+module.exports = Calendar;
 
