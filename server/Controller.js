@@ -1,10 +1,4 @@
 const Calendar = require('../database/Calendar.js');
-// const find = (placeID) => {
-//   return Calendar.find({id: placeID});
-// }
-// const patch = (placeID, obj) => {
-//   return Calendar.update({id: placeID}, {$push: {bookings: obj}});
-// }
 
 const find = function (req, res) {
   const placeID = req.params.placeID;

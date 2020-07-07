@@ -10,7 +10,8 @@
     "start": "nodemon server/index.js",
     "db:setup": "node database/seed.js",
     "dev:react": "webpack -d --watch",
-    "test": "jest"
+    "test": "jest",
+    "webpack-prod": "webpack -p --mode=production"
   },
   "dependencies": {
     "@babel/preset-env": "^7.10.3",
@@ -37,7 +38,6 @@
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor.git",
     "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-jsx-a11y": "^6.3.0",
     "eslint-plugin-react": "^7.20.0",
@@ -51,13 +51,5 @@
   },
   "version": "1.0.0",
   "main": ".eslintrc.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/eleenyeh/hrsf128-front-end-capstone.git"
-  },
-  "keywords": [],
-  "bugs": {
-    "url": "https://github.com/eleenyeh/hrsf128-front-end-capstone/issues"
-  },
-  "homepage": "https://github.com/eleenyeh/hrsf128-front-end-capstone#readme"
+  "keywords": []
 }

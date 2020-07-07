@@ -1,12 +1,12 @@
-FROM node:latest
+FROM node:8.10-alpine
 
-WORKDIR src/app
+RUN mkdir -p /src/app
 
-COPY package*.json ./
+WORKDIR /src/app
+
+COPY . /src/app
 
 RUN npm install
-
-COPY . .
 
 EXPOSE 3001
 

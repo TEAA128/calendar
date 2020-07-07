@@ -4,8 +4,6 @@ import styles from '../../dist/style.css';
 import Chevron from './airbnb-chevron.svg';
 import SVG from 'react-inlinesvg';
 
-let dateContext1 = moment();
-
 class Calendar extends React.Component {
   constructor(props) {
     super(props);

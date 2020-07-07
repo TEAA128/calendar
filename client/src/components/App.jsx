@@ -30,7 +30,7 @@ class App extends React.Component {
 
   getData() {
     $.ajax({
-      url: `http://localhost:3001/api/${placeID}`,
+      url: `/api/${placeID}`,
       type: 'GET',
       success: (data) => {
         console.log(data[0]);
@@ -59,7 +59,7 @@ class App extends React.Component {
     }
 
     $.ajax({
-      url: `http://localhost:3001/api/${placeID}`,
+      url: `/api/${placeID}`,
       type: 'PATCH',
       data: reservation,
       success: (data) => {
