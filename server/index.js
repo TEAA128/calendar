@@ -17,14 +17,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // get request
-app.get('/api/:placeID', Controller.find);
+app.get('/api/calendar/:placeID', Controller.find);
 // patch request
-app.patch('/api/:placeID', Controller.patch);
+app.patch('/api/calendar/:placeID', Controller.patch);
 
 // post request,
-app.post('/api/:placeID', Controller.post);
+app.post('/api/calendar/:placeID', Controller.post);
 
 // delete request
-app.delete('/api/:placeID', Controller.delete);
+app.delete('/api/calendar/:placeID', Controller.delete);
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
