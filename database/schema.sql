@@ -10,6 +10,8 @@ CREATE TABLE places (
   average_rating real,
   number_of_review smallint,
   max_capacity smallint,
+  location_city text,
+  location_country text,
 );
 
 ALTER TABLE places ADD PRIMARY KEY (place_id);
@@ -21,6 +23,9 @@ CREATE TABLE bookings (
   infants smallint,
   checkin date,
   checkout date,
+  nightly_fee smallint,
+  cleaning_fee smallint,
+  occupance_tax_rate smallint,
 );
 
 ALTER TABLE bookings ADD PRIMARY KEY (booking_id);

@@ -47,149 +47,130 @@ npm db:setup
 
 ## Server API
 
-### Get calendar info a place
-  * GET `/api/places/:placeID/calendar/`
+### Get place info
+  * GET `/api/places/:placeId`
 
 **Path Parameters:**
-  * `placeID` place id
+  * `placeId` place id
 
 **Success Status Code:** `200`
 
 **Returns:** JSON
 
 ```json
-[
     {
-        "_id": "5f06608da76e0d49584f75dc",
-        "id": 1,
-        "nightly_fee": 71,
-        "cleaning_fee": 70,
-        "occupancy_tax_rate": 0.08600000000000001,
-        "avg_rating": 4.34,
-        "reviews": 623,
-        "city": "Celiabury",
-        "max_capacity": 3,
-        "bookings": [
-            {
-                "guests": {
-                    "adults": 2,
-                    "children": 3,
-                    "infants": 2
-                },
-                "_id": "5f06608da76e0d49584f75dd",
-                "checkin": "2020-08-08T21:15:04.527Z",
-                "checkout": "2020-08-11T08:30:51.584Z"
-            }
-        ],
-        "__v": 0
-    },
-    {
-        "_id": "5f0661091e5e0849c849727e",
-        "id": 1,
-        "nightly_fee": 183,
-        "cleaning_fee": 46,
-        "occupancy_tax_rate": 0.126,
-        "avg_rating": 4.91,
-        "reviews": 622,
-        "city": "East Elyssa",
-        "max_capacity": 6,
-        "bookings": [
-            {
-                "guests": {
-                    "adults": 2,
-                    "children": 3,
-                    "infants": 2
-                },
-                "_id": "5f0661091e5e0849c849727f",
-                "checkin": "2020-08-09T07:28:38.700Z",
-                "checkout": "2020-08-11T03:47:36.526Z"
-            }
-        ],
-        "__v": 0
-    },
-    {
-        "_id": "5f06618c7cfda84a43c499ea",
-        "id": 1,
-        "nightly_fee": 95,
-        "cleaning_fee": 80,
-        "occupancy_tax_rate": 0.085,
-        "avg_rating": 3,
-        "reviews": 639,
-        "city": "Lemuelhaven",
-        "max_capacity": 2,
-        "bookings": [
-            {
-                "guests": {
-                    "adults": 2,
-                    "children": 3,
-                    "infants": 2
-                },
-                "_id": "5f06618c7cfda84a43c499eb",
-                "checkin": "2020-08-09T19:46:12.749Z",
-                "checkout": "2020-08-14T01:21:32.322Z"
-            }
-        ],
-        "__v": 0
-    }
-]
-```
-
-### Add place
-  * POST `/api/places/:placeID/calendar`
-
-**Success Status Code:** `201`
-
-**Request Body**: Expects JSON with the following keys.
-
-```json
-    {
-      "id": "Number",
-        "nightly_fee": "Number",
-        "cleaning_fee": "Number",
-        "occupancy_tax_rate": "Number",
-        "avg_rating": "Number",
+        "placeId": "Number",
+        "nightlyFee": "Number",
+        "cleaningFee": "Number",
+        "occupancyTaxRate": "Number",
+        "averateRating": "Number",
         "reviews": "Number",
-        "city": "String",
-        "max_capacity": "Number",
-        "bookings": [{
-          "checkin": "Date",
-          "checkout": "Date",
-          "guests": {
-            "adults": "Number",
-            "children": "Number",
-            "infants": "Number",
+        "locationCity": "String",
+        "locationCountry": "String",
+        "maxCapacity": "Number",
+        "bookings": [
+          {
+            "bookingId": "Number",
+            "checkin": "Date",
+            "checkout": "Date",
           },
-        }],
-    }
+          {
+            "bookingId": "Number",
+            "checkin": "Date",
+            "checkout": "Date",
+          },
+        ]
+    },
 ```
 
-
-### Update the accomodation booking info
-  * PATCH `/api/places/:placeID/calendar`
+### Get booking info
+  * GET `/api/bookings/:bookingId`
 
 **Path Parameters:**
-  * `placeID` place id
+  * `bookingId` place id
 
-**Success Status Code:** `204`
+**Success Status Code:** `200`
 
-**Request Body**: Expects JSON with following keys to add new booked data with number of the guests, adults, children, infants.
+**Returns:** JSON
 
 ```json
     {
+      "bookingId": "Number",
       "checkin": "Date",
       "checkout": "Date",
-      "guests": {
-        "adults": "Number",
-        "children": "Number",
-        "infants": "Number",
-      }
-    }
+      "maxCapacity": "Number",
+      "adults": "Number",
+      "children": "Number",
+      "infants": "Number",
+      "placeId": "Number",
+      "nightlyFee": "Number",
+      "cleaningFee": "Number",
+      "occupancyTaxRate": "Number",
+      "locationCity": "String",
+      "locationCountry": "String",
+    },
 ```
 
-### Delete one place from database
-  * DELETE `/api/places/:placeId/calendar`
+### Add a new booking to existing place
+  * POST `/api/places/:placeId`
 
 **Path Parameters:**
   * `placeId` place id
+
+**Success Status Code:** `201`
+
+**Request Body**: Expects JSON with the following keys to add a new booking to existing place
+
+```json
+    {
+      "placeId": "Number",
+      "nightlyFee": "Number",
+      "cleaningFee": "Number",
+      "occupancyTaxRate": "Number",
+      "checkin": "Date",
+      "checkout": "Date",
+      "adults": "Number",
+      "children": "Number",
+      "infants": "Number",
+    }
+```
+
+### Update the existing booking info
+  * PUT `/api/booking/:bookingId`
+
+**Path Parameters:**
+  * `bookingId` booking id
+
+**Success Status Code:** `204`
+
+**Request Body**: Expects JSON with following keys to update the booking info of existing booking
+
+```json
+    {
+      "bookingId": "Number",
+      "checkin": "Date",
+      "checkout": "Date",
+      "adults": "Number",
+      "children": "Number",
+      "infants": "Number",
+      "nightlyFee": "Number",
+      "cleaningFee": "Number",
+      "occupancyTaxRate": "Number",
+    }
+```
+
+### Delete a place from database
+  * DELETE `/api/places/:placeId`
+
+**Path Parameters:**
+  * `placeId` place id
+
+**Success Status Code:** `204`
+
+### Delete a booking from database
+  * DELETE `/api/bookings/bookingId`
+
+**Path Parameters:**
+  * `bookingId` booking id
 
 **Success Status Code:** `204`
