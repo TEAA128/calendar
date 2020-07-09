@@ -46,7 +46,7 @@ npm db:setup
 ## Server API
 
 ### Get calendar info a place
-  * GET `/api/:placeID`
+  * GET `/api/places/:placeID/calendar/`
 
 **Path Parameters:**
   * `placeID` place id
@@ -133,7 +133,7 @@ npm db:setup
 ```
 
 ### Add place
-  * POST `/api/:placeID`
+  * POST `/api/places/:placeID/calendar`
 
 **Success Status Code:** `201`
 
@@ -163,7 +163,7 @@ npm db:setup
 
 
 ### Update the accomodation booking info
-  * PATCH `/api/:placeID`
+  * PATCH `/api/places/:placeID/calendar`
 
 **Path Parameters:**
   * `placeID` place id
@@ -185,7 +185,7 @@ npm db:setup
 ```
 
 ### Delete one place from database
-  * DELETE `/api/:placeId`
+  * DELETE `/api/places/:placeId/calendar`
 
 **Path Parameters:**
   * `placeId` place id
