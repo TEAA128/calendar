@@ -3,7 +3,7 @@ CREATE DATABASE calendarTEAA;
 \connect calendarTEAA;
 
 CREATE TABLE places (
-  place_id serial,
+  place_id serial NOT NULL,
   nightly_fee smallint,
   cleaning_fee smallint,
   occupance_tax_rate smallint,

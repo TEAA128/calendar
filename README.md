@@ -136,14 +136,14 @@ npm db:setup
 ```
 
 ### Update the existing booking info
-  * PUT `/api/booking/:bookingId`
+  * PATCH `/api/booking/:bookingId`
 
 **Path Parameters:**
   * `bookingId` booking id
 
 **Success Status Code:** `204`
 
-**Request Body**: Expects JSON with following keys to update the booking info of existing booking
+**Request Body**: Expects JSON with following keys to update the booking info of existing booking. Checkin, checkout, adults, children, infants fields are required. Other fields are optional because the booking can use existing nightlyFee, cleaningFee, occupancyTaxRate recalculate booking total.
 
 ```json
     {
