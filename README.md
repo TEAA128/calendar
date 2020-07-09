@@ -1,13 +1,13 @@
 # Project Name
 
-> Project description
+> Full Stack Hostel Booking web application
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - https://github.com/TEAA128/calendar
+  - https://github.com/TEAA128/reviews
+  - https://github.com/TEAA128/carousel
+  - https://github.com/TEAA128/PhotoGallery
 
 ## Table of Contents
 
@@ -33,103 +33,161 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 From within the root directory:
 
 ```sh
-npm install -g webpack
 npm install
+npm install start
+```
+
+To seed database, from within the root directory:
+
+```sh
+npm db:setup
 ```
 
 ## Server API
 
-### Get a room info
-  * GET `/api/:id`
+### Get calendar info a place
+  * GET `/api/:placeID`
 
 **Path Parameters:**
-  * `id` restaurant id
+  * `placeID` place id
 
 **Success Status Code:** `200`
 
 **Returns:** JSON
 
 ```json
+[
+    {
+        "_id": "5f06608da76e0d49584f75dc",
+        "id": 1,
+        "nightly_fee": 71,
+        "cleaning_fee": 70,
+        "occupancy_tax_rate": 0.08600000000000001,
+        "avg_rating": 4.34,
+        "reviews": 623,
+        "city": "Celiabury",
+        "max_capacity": 3,
+        "bookings": [
+            {
+                "guests": {
+                    "adults": 2,
+                    "children": 3,
+                    "infants": 2
+                },
+                "_id": "5f06608da76e0d49584f75dd",
+                "checkin": "2020-08-08T21:15:04.527Z",
+                "checkout": "2020-08-11T08:30:51.584Z"
+            }
+        ],
+        "__v": 0
+    },
+    {
+        "_id": "5f0661091e5e0849c849727e",
+        "id": 1,
+        "nightly_fee": 183,
+        "cleaning_fee": 46,
+        "occupancy_tax_rate": 0.126,
+        "avg_rating": 4.91,
+        "reviews": 622,
+        "city": "East Elyssa",
+        "max_capacity": 6,
+        "bookings": [
+            {
+                "guests": {
+                    "adults": 2,
+                    "children": 3,
+                    "infants": 2
+                },
+                "_id": "5f0661091e5e0849c849727f",
+                "checkin": "2020-08-09T07:28:38.700Z",
+                "checkout": "2020-08-11T03:47:36.526Z"
+            }
+        ],
+        "__v": 0
+    },
+    {
+        "_id": "5f06618c7cfda84a43c499ea",
+        "id": 1,
+        "nightly_fee": 95,
+        "cleaning_fee": 80,
+        "occupancy_tax_rate": 0.085,
+        "avg_rating": 3,
+        "reviews": 639,
+        "city": "Lemuelhaven",
+        "max_capacity": 2,
+        "bookings": [
+            {
+                "guests": {
+                    "adults": 2,
+                    "children": 3,
+                    "infants": 2
+                },
+                "_id": "5f06618c7cfda84a43c499eb",
+                "checkin": "2020-08-09T19:46:12.749Z",
+                "checkout": "2020-08-14T01:21:32.322Z"
+            }
+        ],
+        "__v": 0
+    }
+]
+```
+
+### Add place
+  * POST `/api/:placeID`
+
+**Success Status Code:** `201`
+
+**Request Body**: Expects JSON with the following keys.
+
+```json
     {
       "id": "Number",
-      "name": "String",
-      "address": "String",
-      "phone": "String",
-      "website": "String",
-      "cost": "Number"
-    }
-```
-
-### Add restaurant
-  * POST `/api/restaurants`
-
-**Success Status Code:** `201`
-
-**Request Body**: Expects JSON with the following keys.
-
-```json
-    {
-      "name": "String",
-      "address": "String",
-      "phone": "String",
-      "website": "String",
-      "googleMap": "String location",
-      "cost": "Number"
+        "nightly_fee": "Number",
+        "cleaning_fee": "Number",
+        "occupancy_tax_rate": "Number",
+        "avg_rating": "Number",
+        "reviews": "Number",
+        "city": "String",
+        "max_capacity": "Number",
+        "bookings": [{
+          "checkin": "Date",
+          "checkout": "Date",
+          "guests": {
+            "adults": "Number",
+            "children": "Number",
+            "infants": "Number",
+          },
+        }],
     }
 ```
 
 
-### Update restaurant info
-  * PATCH `/api/restaurant/:id`
+### Update the accomodation booking info
+  * PATCH `/api/:placeID`
 
 **Path Parameters:**
-  * `id` restaurant id
+  * `placeID` place id
 
 **Success Status Code:** `204`
 
-**Request Body**: Expects JSON with any of the following keys (include only keys to be updated)
+**Request Body**: Expects JSON with following keys to add new booked data with number of the guests, adults, children, infants.
 
 ```json
     {
-      "name": "String",
-      "address": "String",
-      "phone": "String",
-      "website": "String",
-      "cost": "Number"
+      "checkin": "Date",
+      "checkout": "Date",
+      "guests": {
+        "adults": "Number",
+        "children": "Number",
+        "infants": "Number",
+      }
     }
 ```
 
-### Delete restaurant
-  * DELETE `/api/restaurant/:id`
+### Delete one place from database
+  * DELETE `/api/:placeId`
 
 **Path Parameters:**
-  * `id` restaurant id
+  * `placeId` place id
 
 **Success Status Code:** `204`
-
-### Add image to restaurant
-  * POST `/api/restaurants/:restaurantId/images`
-
-**Path Parameters:**
-
-  * `restaurantId` restaurant id
-
-**Success Status Code:** `201`
-
-**Request Body**: Expects JSON with the following keys.
-
-```json
-    {
-      "user": "String",
-      "image": "image URL",
-      "description": "String",
-      "posted": "YYYY-MM-MM",
-      "googleMap": "String location",
-      "category": "String",
-      "restaurant": "id Number",
-      "cost": "Number"
-    }
-```
-×
-Drag and Drop
-The image will be downloaded

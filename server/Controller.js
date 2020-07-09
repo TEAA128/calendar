@@ -1,7 +1,7 @@
 const Calendar = require('../database/Calendar.js');
 
-const find = function (req, res) {
-  const placeID = req.params.placeID;
+const find = (req, res) => {
+  const { placeID } = req.params;
   Calendar.find({ id: placeID })
     .exec((err, data) => {
       if (err) res.sendStatus(400);
@@ -9,41 +9,40 @@ const find = function (req, res) {
     });
 };
 
-const patch = function (req, res) {
-  const placeID = req.params.placeID;
+const patch = (req, res) => {
+  const { placeID } = req.params;
   const obj = req.body;
   Calendar.update({ id: placeID }, { $push: { bookings: obj } })
     .exec((err, data) => {
       if (err) res.sendStatus(400);
-      res.send(data);
+      if (data) res.sendStatus(204).send(data);
     });
 };
 
-const post = function (req, res) {
-  const placeID = req.params.placeID;
-  const obj = req.body;
-  Calendar.save({ id: placeID }, { $push: { bookings: obj } })
-    .exec((err, data) => {
-      if (err) res.sendStatus(400);
-      res.send(data);
-    });
-};
+// const post = function (req, res) {
+//   const placeID = req.params.placeID;
+//   const obj = req.body;
+//   Calendar.save({ id: placeID }, { $push: { bookings: obj } })
+//     .exec((err, data) => {
+//       if (err) res.sendStatus(400);
+//       res.send(data);
+//     });
+// };
 
-const delete = function (req, res) {
-  const placeID = req.params.placeID;
+const deleteOne = (req, res) => {
+  const { placeID } = req.params;
   const obj = req.body;
   Calendar.findByIdAndRemove({ id: placeID })
     .exec((err, data) => {
       if (err) res.sendStatus(400);
-      res.sendStatus(200);
+      res.sendStatus(204);
     });
 };
-
 
 module.exports = {
   find,
   patch,
-  post,
-  put,
-  delete
+  // post,
+  // put,
+  deleteOne,
 }

@@ -1,4 +1,4 @@
-const db  = require('./index.js');
+const db = require('./index.js');
 const Calendar = require('./Calendar.js');
 const faker = require('faker');
 

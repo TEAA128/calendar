@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
-const db = require('./index.js');
+// const db = require('./index.js');
+
 mongoose.Promise = global.Promise;
 
-let calendarSchema = new mongoose.Schema({
+const calendarSchema = new mongoose.Schema({
   id: Number,
   nightly_fee: Number,
   cleaning_fee: Number,
@@ -12,17 +13,16 @@ let calendarSchema = new mongoose.Schema({
   city: String,
   max_capacity: Number,
   bookings: [{
-      checkin: Date,
-      checkout: Date,
-      guests: {
-          adults: Number,
-          children: Number,
-          infants: Number
-        }
-      }]
-  });
+    checkin: Date,
+    checkout: Date,
+    guests: {
+      adults: Number,
+      children: Number,
+      infants: Number,
+    },
+  }],
+});
 
-let Calendar = mongoose.model('Calendar', calendarSchema);
+const Calendar = mongoose.model('Calendar', calendarSchema);
 
 module.exports = Calendar;
-
