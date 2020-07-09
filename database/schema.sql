@@ -42,9 +42,10 @@ CREATE TABLE users (
   country varchar(25),
   zip_code smallint,
   email varchar(50),
-  bookings json,
 );
 
 ALTER TABLE users ADD PRIMARY KEY (user_id);
 ALTER TABLE bookings
   ADD CONSTRAINT user_id_fkey FOREIGN KEY (user_id) REFERENCES users (user_id);
+AlTER TABLE users
+  ADD CONSTRAINT booking_id_fkey FOREIGN KEY (booking_id) REFERENCES bookings (booking_id);
