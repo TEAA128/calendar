@@ -25,6 +25,7 @@
     "mongodb": "^3.5.9",
     "mongoose": "^5.9.19",
     "nodemon": "^2.0.4",
+    "pg-promise": "^10.5.8",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
