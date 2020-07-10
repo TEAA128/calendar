@@ -63,7 +63,7 @@ npm db:setup
         "nightlyFee": "Number",
         "cleaningFee": "Number",
         "occupancyTaxRate": "Number",
-        "averateRating": "Number",
+        "averageRating": "Number",
         "reviews": "Number",
         "locationCity": "String",
         "locationCountry": "String",
@@ -168,7 +168,7 @@ npm db:setup
 **Success Status Code:** `204`
 
 ### Delete a booking from database
-  * DELETE `/api/bookings/bookingId`
+  * DELETE `/api/bookings/:bookingId`
 
 **Path Parameters:**
   * `bookingId` booking id
