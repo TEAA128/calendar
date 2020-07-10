@@ -9,3 +9,5 @@ db.one('SELECT $1 AS value', 123)
   .catch((error) => {
     console.log('ERROR:', error);
   });
+
+module.export = db;
