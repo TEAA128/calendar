@@ -24,7 +24,5 @@ coverage
 build/
 
 # csv files for seeding database
-databasePostgresql/placesTable.csv
-databasePostgresql/bookingsTable.csv
-databasePostgresql/usersTable.csv
+csvPostgresql
 
