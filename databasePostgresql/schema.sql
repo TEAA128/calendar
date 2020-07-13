@@ -16,8 +16,6 @@ CREATE TABLE places (
   location_country varchar(75)
 );
 
--- ALTER TABLE places ADD PRIMARY KEY (place_id);
-
 CREATE TABLE users (
   user_id_serial serial PRIMARY KEY,
   user_id uuid,
@@ -48,13 +46,35 @@ CREATE TABLE bookings (
   FOREIGN KEY (place_id_serial) REFERENCES places (place_id_serial)
 );
 
--- ALTER TABLE bookings
 
--- ALTER TABLE bookings
+COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable0.csv' CSV HEADER;
+COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable1.csv' CSV HEADER;
+COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable2.csv' CSV HEADER;
+COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable3.csv' CSV HEADER;
+COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable4.csv' CSV HEADER;
+COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable5.csv' CSV HEADER;
+COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable6.csv' CSV HEADER;
+COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable7.csv' CSV HEADER;
+COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable8.csv' CSV HEADER;
+COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable9.csv' CSV HEADER;
 
+COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable0.csv' CSV HEADER;
+COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable1.csv' CSV HEADER;
+COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable2.csv' CSV HEADER;
+COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable3.csv' CSV HEADER;
+COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable4.csv' CSV HEADER;
+COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable5.csv' CSV HEADER;
+COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable6.csv' CSV HEADER;
+COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable7.csv' CSV HEADER;
+COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable8.csv' CSV HEADER;
+COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable9.csv' CSV HEADER;
 
-COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/databasePostgresql/placesTable.csv' CSV HEADER;
-
-COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/databasePostgresql/usersTable.csv' CSV HEADER;
-
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/databasePostgresql/bookingsTable.csv' CSV HEADER;
+COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable5.csv' CSV HEADER;
+COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable10.csv' CSV HEADER;
+COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable15.csv' CSV HEADER;
+COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable19.csv' CSV HEADER;
+COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable23.csv' CSV HEADER;
+COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable26.csv' CSV HEADER;
+COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable28.csv' CSV HEADER;
+COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable29.csv' CSV HEADER;
+COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable30.csv' CSV HEADER;
