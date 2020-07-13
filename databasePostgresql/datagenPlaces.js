@@ -4,13 +4,13 @@ const csvWriter = require('csv-write-stream');
 
 const writer = csvWriter();
 
-for (let j = 9; j < 10; j += 1) {
+for (let j = 1; j < 2; j += 1) {
   const writeStream = fs.createWriteStream(`../csvPostgresql/placesTable${j}.csv`);
   writer.pipe(writeStream);
   for (let i = 0; i < 1000000; i += 1) {
     writer.write(
       {
-        place_id_serial: i + 1 + 9000000,
+        place_id_serial: i + 1 + 1000000 * j,
         place_id: faker.random.uuid(),
         nightly_fee: Math.floor(Math.random() * 300) + 60,
         cleaning_fee: Math.floor(Math.random() * 150) + 50,
