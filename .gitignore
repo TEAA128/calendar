@@ -25,4 +25,5 @@ build/
 
 # csv files for seeding database
 csvPostgresql
+csvCassandra
 

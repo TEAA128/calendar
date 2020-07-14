@@ -1,24 +1,26 @@
-CREATE KEYSPACE place;
+DROP KEYSPACE IF EXISTS calendar;
+CREATE KEYSPACE calendar WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 
-CREATE TABLE place.place_by_id (
+CREATE TABLE calendar.place_by_id (
+  place_id_serial int,
   place_id uuid,
   nightly_fee smallint,
   cleaning_fee smallint,
-  occupance_tax_rate smallint,
-  average_rating real,
+  occupancy_tax_rate float,
+  average_rating float,
   number_of_review smallint,
   max_capacity smallint,
   location_city text,
   location_country text,
-  PRIMARY KEY (place_id),
+  PRIMARY KEY(place_id_serial)
 )
   WITH comment = 'Q1. Find a place with its id';
 
-CREATE KEYSPACE booking;
-
-CREATE TABLE booking.booking_by_place (
-  place_id
+CREATE TABLE calendar.booking_by_id (
+  booking_id_serial int,
   booking_id uuid,
+  user_id_serial text,
+  place_id_serial text,
   adults smallint,
   children smallint,
   infants smallint,
@@ -26,32 +28,51 @@ CREATE TABLE booking.booking_by_place (
   checkout date,
   nightly_fee smallint,
   cleaning_fee smallint,
-  occupance_tax_rate smallint,
-  PRIMARY KEY( place_id, booking_id),
+  occupancy_tax_rate float,
+  PRIMARY KEY(booking_id_serial, user_id_serial, place_id_serial),
 )
-  WITH comment = 'Q2. Find booking info of the place';
+  WITH comment = 'Q2. Find booking info with its id';
 
-CREATE TABLE booking.booking_by_id (
-  booking_id uuid,
-  user_id text,
-  place_id text,
-  adults smallint,
-  children smallint,
-  infants smallint,
-  checkin date,
-  checkout date,
-  nightly_fee smallint,
-  cleaning_fee smallint,
-  occupance_tax_rate smallint,
-  PRIMARY KEY(booking_id, user_id, place_id),
+CREATE TABLE calendar.booking_by_place (
+  place_id_serial int,
+  place_id uuid,
+  bookings text,
+  -- bookings set<int>,
+  -- adults smallint,
+  -- children smallint,
+  -- infants smallint,
+  -- checkin date,
+  -- checkout date,
+  -- nightly_fee smallint,
+  -- cleaning_fee smallint,
+  -- occupancy_tax_rate float,
+  PRIMARY KEY(place_id_serial, bookings),
 )
-  WITH comment = 'Q3. Find booking info with its id';
+  WITH comment = 'Q3. Find booking info of the place';
 
-CREATE KEYSPACE user;
-
-CREATE TABLE user.user_id (
+CREATE TABLE calendar.user_by_id (
+  user_id_serial int,
   user_id uuid,
-  bookings list<booking_id>
-  PRIMARY KEY( user_id, booking_id),
+  bookings text,
+  -- bookings set <int>,
+  PRIMARY KEY(user_id_serial),
 )
   WITH comment = 'Q4. Find booking info with user id';
+
+-- place_by_id
+COPY place_by_id(place_id_serial, place_id, nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvCassandra/place_by_id4.csv' with header=true and delimiter =',';
+COPY place_by_id(place_id_serial, place_id, nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvCassandra/place_by_id8.csv' with header=true and delimiter =',';
+COPY place_by_id(place_id_serial, place_id, nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvCassandra/place_by_id10.csv' with header=true and delimiter =',';
+
+-- bookind_by_id
+COPY booking_by_id(booking_id_serial, booking_id, user_id_serial, place_id_serial, adults, children, infants, checkin, checkout, nightly_fee, cleaning_fee, occupancy_tax_rate) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvCassandra/booking_by_id.csv' with header=true and delimiter =',';
+
+-- booking_by_place
+COPY place_by_id(place_id_serial, place_id, bookings) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvCassandra/booking_by_place4.csv' with header=true and delimiter =',';
+COPY place_by_id(place_id_serial, place_id, bookings) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvCassandra/booking_by_place8.csv' with header=true and delimiter =',';
+COPY place_by_id(place_id_serial, place_id, bookings) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvCassandra/booking_by_place10.csv' with header=true and delimiter =',';
+
+-- user_by_id
+COPY place_by_id(user_id_serial, user_id, bookings) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvCassandra/user_by_id4.csv' with header=true and delimiter =',';
+COPY place_by_id(user_id_serial, user_id, bookings) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvCassandra/user_by_id8.csv' with header=true and delimiter =',';
+COPY place_by_id(user_id_serial, user_id, bookings) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvCassandra/user_by_id10.csv' with header=true and delimiter =',';
