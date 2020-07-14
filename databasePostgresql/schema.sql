@@ -78,3 +78,13 @@ COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgre
 COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable28.csv' CSV HEADER;
 COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable29.csv' CSV HEADER;
 COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable30.csv' CSV HEADER;
+COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable35.csv' CSV HEADER;
+COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable40.csv' CSV HEADER;
+COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable45.csv' CSV HEADER;
+COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable50.csv' CSV HEADER;
+COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable55.csv' CSV HEADER;
+COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable60.csv' CSV HEADER;
+COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable65.csv' CSV HEADER;
+COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable70.csv' CSV HEADER;
+COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable75.csv' CSV HEADER;
+COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable80.csv' CSV HEADER;
