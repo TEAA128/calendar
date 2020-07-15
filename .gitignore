@@ -23,4 +23,7 @@ coverage
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 build/
 
+# csv files for seeding database
+csvPostgresql/
+csvCassandra/
 
