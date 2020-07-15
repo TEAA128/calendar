@@ -37,15 +37,6 @@ CREATE TABLE calendar.booking_by_place (
   place_id_serial int,
   place_id uuid,
   bookings text,
-  -- bookings set<int>,
-  -- adults smallint,
-  -- children smallint,
-  -- infants smallint,
-  -- checkin date,
-  -- checkout date,
-  -- nightly_fee smallint,
-  -- cleaning_fee smallint,
-  -- occupancy_tax_rate float,
   PRIMARY KEY(place_id_serial, bookings),
 )
   WITH comment = 'Q3. Find booking info of the place';
@@ -54,7 +45,6 @@ CREATE TABLE calendar.user_by_id (
   user_id_serial int,
   user_id uuid,
   bookings text,
-  -- bookings set <int>,
   PRIMARY KEY(user_id_serial),
 )
   WITH comment = 'Q4. Find booking info with user id';
@@ -62,7 +52,6 @@ CREATE TABLE calendar.user_by_id (
 -- place_by_id
 COPY calendar.place_by_id(place_id_serial, place_id, nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvCassandra/place_by_id5.csv' with header=true and delimiter =',';
 COPY calendar.place_by_id(place_id_serial, place_id, nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvCassandra/place_by_id10.csv' with header=true and delimiter =',';
-
 
 -- bookind_by_id
 COPY calendar.booking_by_id(booking_id_serial, booking_id, user_id_serial, place_id_serial, adults, children, infants, checkin, checkout, nightly_fee, cleaning_fee, occupancy_tax_rate) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvCassandra/booking_by_id5.csv' with header=true and delimiter =',';

@@ -24,8 +24,6 @@ for (let j = 1; j < 2; j += 1) {
     );
   }
   console.log(`finished ${j} million`);
-  // writeStream.end();
-  // global.gc
 }
 
 console.log('Generated 10mil data');

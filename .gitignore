@@ -24,6 +24,6 @@ coverage
 build/
 
 # csv files for seeding database
-database/csvPostgresql
-database/csvCassandra
+csvPostgresql/
+csvCassandra/
 
