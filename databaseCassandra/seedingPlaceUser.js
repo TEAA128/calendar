@@ -4,10 +4,6 @@ const csvWriter = require('csv-write-stream');
 const perf = require('execution-time')();
 const dataFaker = require('./dataFaker.js');
 
-// if (fs.existsSync(`../csvCassandra/place_by_id${j}.csv`)) {
-//   fs.unlinkSync(`../csvCassandra/place_by_id${j}.csv`);
-// }
-
 // start of measuring performance time
 perf.start();
 
@@ -15,7 +11,7 @@ const writer1 = csvWriter();
 const writer2 = csvWriter();
 const writer3 = csvWriter();
 
-const start = 8;
+const start = 5;
 const end = 10;
 
 const writeStream1 = fs.createWriteStream(`../csvCassandra/place_by_id${end}.csv`);
@@ -47,13 +43,13 @@ for (let j = start; j < end; j += 1) {
     writer2.write({
       place_id_serial: data[i].place_id_serial,
       place_id: data[i].place_id,
-      bookings: data[i].bookings,
+      bookings: data[i].bookingsPlace,
     });
 
     writer3.write({
       user_id_serial: data[i].place_id_serial,
       user_id: data[i].place_id,
-      bookings: data[i].bookings,
+      bookings: data[i].bookingsUser,
     });
   }
 }

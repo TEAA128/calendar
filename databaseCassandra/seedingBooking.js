@@ -4,23 +4,19 @@ const csvWriter = require('csv-write-stream');
 const perf = require('execution-time')();
 const dataFaker = require('./dataFaker.js');
 
-// if (fs.existsSync(`../csvCassandra/place_by_id${j}.csv`)) {
-//   fs.unlinkSync(`../csvCassandra/place_by_id${j}.csv`);
-// }
-
 // start of measuring performance time
 perf.start();
 
 const writer = csvWriter();
 
-const start = 0;
-const end = 10;
+const start = 75;
+const end = 80;
 
 const writeStream = fs.createWriteStream(`../csvCassandra/booking_by_id${end}.csv`);
 writer.pipe(writeStream);
 
 for (let j = start; j < end; j += 1) {
-  const data = dataFaker.dataPlace_by_id(j);
+  const data = dataFaker.dataBooking_by_id(j);
 
   for (let i = 0; i < data.length; i += 1) {
     writer.write({
@@ -33,11 +29,14 @@ for (let j = start; j < end; j += 1) {
       infants: data[i].infants,
       checkin: data[i].checkin,
       checkout: data[i].checkout,
+      nightly_fee: data[i].nightly_fee,
+      cleaning_fee: data[i].cleaning_fee,
+      occupancy_tax_rate: data[i].occupancy_tax_rate,
     });
   }
 }
 
-console.log('Generated 5mil data');
+console.log('Generated 10mil data');
 writer.end();
 
 // end of measuring performance time
