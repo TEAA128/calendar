@@ -49,6 +49,40 @@ CREATE TABLE calendar.user_by_id (
 )
   WITH comment = 'Q4. Find booking info with user id';
 
+CREATE TABLE calendar.bookings_by_place_id (
+  place_id_serial int,
+  place_id uuid,
+  average_rating float,
+  number_of_review smallint,
+  max_capacity smallint,
+  location_city text,
+  location_country text,
+  booking_id_serial int,
+  booking_id uuid,
+  adults smallint,
+  children smallint,
+  infants smallint,
+  checkin date,
+  checkout date,
+  nightly_fee smallint,
+  cleaning_fee smallint,
+  occupancy_tax_rate float,
+  user_id_serial text,
+  first_name text,
+  last_name text,
+  address_line_1 text,
+  address_line_2 text,
+  city text,
+  country text,
+  zip_code text,
+  email text,
+  PRIMARY KEY(place_id_serial),
+)  WITH comment = 'Q4. Find booking info with user id';
+
+
+
+
+
 -- place_by_id
 COPY calendar.place_by_id(place_id_serial, place_id, nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvCassandra/place_by_id5.csv' with header=true and delimiter =',';
 COPY calendar.place_by_id(place_id_serial, place_id, nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvCassandra/place_by_id10.csv' with header=true and delimiter =',';
