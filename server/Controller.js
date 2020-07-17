@@ -1,4 +1,4 @@
-const Calendar = require('../database/Calendar.js');
+// const Calendar = require('../database/Calendar.js');
 
 const find = (req, res) => {
   const { placeID } = req.params;
