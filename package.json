@@ -11,7 +11,8 @@
     "db:setup": "node database/seed.js",
     "dev:react": "webpack -d --watch",
     "test": "jest",
-    "webpack-prod": "webpack -p --mode=production"
+    "webpack-prod": "webpack -p --mode=production",
+    "k6": "k6 run server/script.js"
   },
   "dependencies": {
     "@babel/preset-env": "^7.10.3",

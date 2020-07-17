@@ -30,6 +30,7 @@ app.get('/api/calendar/:placeId', (req, res) => {
     });
   });
 });
+
 // patch request
 // app.patch('/api/calendar/:placeID', () => {console.log('This is PATCH')});
 
