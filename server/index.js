@@ -1,23 +1,35 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('../database');
 const cors = require('cors');
-// const path = require('path');
-const controller = require('./Controller.js');
-
-// const Calendar = require('../database/Calendar.js');
+const path = require('path');
+const pool = require('../database/index.js');
 
 const app = express();
 const port = 3001;
 
 app.use(cors());
-app.use('/calendar/', express.static(__dirname + '/../client/dist'));
+
+app.use('/calendar/', express.static(path.join(__dirname, '../client/dist/')));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // get request
-app.get('/api/calendar/:placeID', () => {console.log('this is GET')});
+app.get('/api/calendar/:placeId', (req, res) => {
+  const { placeId } = req.params;
+  const query = `SELECT * FROM bookings WHERE booking_id_serial = ${placeId}`;
+  pool.connect((err, client, done) => {
+    if (err) throw err;
+    client.query(query, (error, result) => {
+      done();
+      if (err) {
+        res.status(404).send(error.stack);
+      } else {
+        res.status(200).json(result.rows[0]);
+      }
+    });
+  });
+});
 // patch request
 // app.patch('/api/calendar/:placeID', () => {console.log('This is PATCH')});
 
