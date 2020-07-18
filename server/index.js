@@ -20,27 +20,53 @@ if (cluster.isMaster) {
 
   app.use(cors());
 
-  app.use('/calendar/', express.static(path.join(__dirname, '../client/dist/')));
+  app.use('/calendar/:placeId', express.static(path.join(__dirname, '../client/dist/')));
 
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
-  // get request
-  app.get('/api/calendar/:placeId', (req, res) => {
+  // get request bookings
+  app.get('/api/calendar/booking/:placeId', (req, res) => {
     const { placeId } = req.params;
-    const query = `SELECT * FROM bookings WHERE booking_id_serial = ${placeId}`;
-    pool.connect((err, client, done) => {
-      if (err) throw err;
-      client.query(query, (error, result) => {
-        done();
-        if (err) {
-          res.status(404).send(error.stack);
-        } else {
-          res.status(200).json(result.rows[0]);
-        }
+    const query = `SELECT * FROM bookings WHERE place_id_serial = ${placeId}`;
+    pool
+      .connect()
+      .then((client) => {
+        return client
+          .query(query)
+          .then((response) => {
+            client.release();
+            res.status(200).json(response.rows);
+          })
+          .catch((err) => {
+            client.release();
+            res.status(404).send(err.stack);
+          });
       });
-    });
   });
+
+  // get request places with all info
+  app.get('/api/calendar/place/:placeId', (req, res) => {
+    const { placeId } = req.params;
+    const query = `SELECT * FROM bookings INNER JOIN users
+    ON bookings.user_id_serial = users.user_id_serial
+    WHERE place_id_serial = ${placeId}`;
+    pool
+      .connect()
+      .then((client) => {
+        return client
+          .query(query)
+          .then((response) => {
+            client.release();
+            res.status(200).json(response.rows);
+          })
+          .catch((err) => {
+            client.release();
+            res.status(404).send(err.stack);
+          });
+      });
+  });
+
   app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
 }
 

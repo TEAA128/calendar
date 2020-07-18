@@ -142,7 +142,7 @@ class App extends React.Component {
 
     let button;
     let price;
-    let reserve = this.state.checkIn !== 'Add date' && this.state.checkOut !== 'Add date';
+    const reserve = this.state.checkIn !== 'Add date' && this.state.checkOut !== 'Add date';
 
     if (reserve) {
       button = <div className={styles.pinkButton} onClick={this.reserve.bind(this)}>Reserve</div>

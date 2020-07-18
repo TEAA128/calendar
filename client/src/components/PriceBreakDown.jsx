@@ -14,7 +14,7 @@ var PriceBreakDown = (props) => {
   } else {
     night = 'night'
   }
-
+  
   return (
     <div>
       <div className={styles.youWontBeCharged}>You won't be charged yet</div>
