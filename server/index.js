@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const compression = require('compression');
 const pool = require('../database/index.js');
 
 if (cluster.isMaster) {
@@ -14,6 +15,7 @@ if (cluster.isMaster) {
 } else {
   // Workers share the TCP connection in this server
   const app = express();
+  app.use(compression());
 
   // All workers use this port
   const port = 3001;
@@ -45,12 +47,11 @@ if (cluster.isMaster) {
       });
   });
 
-  // get request places with all info
   app.get('/api/calendar/place/:placeId', (req, res) => {
     const { placeId } = req.params;
     const query = `SELECT * FROM bookings INNER JOIN users
-    ON bookings.user_id_serial = users.user_id_serial
-    WHERE place_id_serial = ${placeId}`;
+      ON bookings.user_id_serial = users.user_id_serial
+      WHERE place_id_serial = ${placeId}`;
     pool
       .connect()
       .then((client) => {
@@ -66,6 +67,7 @@ if (cluster.isMaster) {
           });
       });
   });
+
 
   app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
 }
