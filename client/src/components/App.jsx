@@ -30,7 +30,7 @@ class App extends React.Component {
 
   getData() {
     $.ajax({
-      url: `/api/calendar/${placeID}`,
+      url: `/api/calendar/bookings/${placeID}`,
       type: 'GET',
       success: (data) => {
         console.log(data[0]);
