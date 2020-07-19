@@ -49,6 +49,9 @@ class App extends React.Component {
     let checkoutdate = new Date(this.state.checkOut);
 
     let reservation = {
+      nightlyFee: this.state.info.nightly_fee,
+      cleaningFee: this.state.info.cleaning_fee,
+      occupancyTaxRate: this.state.info.occupancy_tax_rate,
       guests: {
         adults: this.state.adults,
         children: this.state.children,
@@ -59,8 +62,8 @@ class App extends React.Component {
     }
 
     $.ajax({
-      url: `/api/calendar/${placeID}`,
-      type: 'PATCH',
+      url: `/api/calendar/bookings/${placeID}`,
+      type: 'POST',
       data: reservation,
       success: (data) => {
         this.getData();
