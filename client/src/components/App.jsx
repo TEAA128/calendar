@@ -5,7 +5,7 @@ import Guests from './Guests.jsx';
 import PriceBreakDown from './PriceBreakDown.jsx';
 import styles from '../../dist/style.css';
 
-const placeID = Math.ceil(Math.random() * 100);
+const placeID = Math.ceil(Math.random() * 10000000) + 1;
 
 class App extends React.Component {
   constructor() {
@@ -33,10 +33,9 @@ class App extends React.Component {
       url: `/api/calendar/bookings/${placeID}`,
       type: 'GET',
       success: (data) => {
-        console.log(data[0]);
         this.setState({
-          info: data[0]
-        })
+          info: data,
+        });
       },
       error: (err) => {
         console.log('Error retrieving data');

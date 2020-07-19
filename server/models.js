@@ -10,7 +10,8 @@ module.exports = {
           .query(query, [placeId])
           .then((response) => {
             client.release();
-            let data = {
+            const data = {
+              place_id_serial: response.rows[0].place_id_serial,
               nightly_fee: response.rows[0].nightly_fee,
               cleaning_fee: response.rows[0].cleaning_fee,
               occupancy_tax_rate: response.rows[0].occupancy_tax_rate,
@@ -27,11 +28,11 @@ module.exports = {
                 checkout: response.rows[i].checkout,
               });
             }
-            callback(data);
+            callback(null, data);
           })
           .catch((err) => {
             client.release();
-            callback(err);
+            callback(err, null);
           });
       });
   },
@@ -46,11 +47,11 @@ module.exports = {
           .query(query, [placeId, nightlyFee, cleaningFee, occupancyTaxRate, checkin, checkout, adults, children, infants])
           .then((response) => {
             client.release();
-            callback(response.rows);
+            callback(null, response.rows);
           })
           .catch((err) => {
             client.release();
-            callback(err);
+            callback(err, null);
           });
       });
   },

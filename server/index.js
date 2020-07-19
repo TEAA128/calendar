@@ -18,7 +18,7 @@ if (cluster.isMaster) {
   const port = 3001;
 
   app.use(cors());
-  app.use('/calendar/:placeId', express.static(path.join(__dirname, '../client/dist/')));
+  app.use('/calendar', express.static(path.join(__dirname, '../client/dist/')));
 
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
