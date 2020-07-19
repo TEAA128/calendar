@@ -1,30 +1,32 @@
+// const newrelic = require('newrelic');
+const cluster = require('cluster');
+const numCPUs = require('os').cpus().length;
 const express = require('express');
 const bodyParser = require('body-parser');
-// const db = require('../database');
-// const path = require('path');
 const cors = require('cors');
-const controller = require('./Controller.js');
+const path = require('path');
+const compression = require('compression');
+const controllers = require('./controllers.js');
 
-// const Calendar = require('../database/Calendar.js');
+if (cluster.isMaster) {
+  for (let i = 0; i < numCPUs; i += 1) {
+    cluster.fork();
+  }
+} else {
+  const app = express();
+  app.use(compression());
+  const port = 3001;
 
-const app = express();
-const port = 3001;
+  app.use(cors());
+  app.use('/calendar', express.static(path.join(__dirname, '../client/dist/')));
 
-app.use(cors());
-app.use('/calendar/', express.static(__dirname + '/../client/dist'));
-app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
 
-app.use(bodyParser.json());
+  // get request bookings
+  app.get('/api/calendar/bookings/:placeId', controllers.getBookings);
 
-// get request
-app.get('/api/:placeID', controller.find);
-// patch request
-app.patch('/api/:placeID', controller.patch);
+  app.post('/api/calendar/bookings/:placeId', controllers.addBooking);
 
-// post request,
-// app.post('/api/calendar/:placeID', Controller.post);
-
-// // delete request
-app.delete('/api/:placeID', controller.deleteOne);
-
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
+  app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
+}

@@ -5,7 +5,7 @@ import Guests from './Guests.jsx';
 import PriceBreakDown from './PriceBreakDown.jsx';
 import styles from '../../dist/style.css';
 
-const placeID = Math.ceil(Math.random() * 100);
+const placeID = Math.ceil(Math.random() * 10000000) + 1;
 
 class App extends React.Component {
   constructor() {
@@ -30,13 +30,12 @@ class App extends React.Component {
 
   getData() {
     $.ajax({
-      url: `/api/${placeID}`,
+      url: `/api/calendar/bookings/${placeID}`,
       type: 'GET',
       success: (data) => {
-        console.log(data[0]);
         this.setState({
-          info: data[0]
-        })
+          info: data,
+        });
       },
       error: (err) => {
         console.log('Error retrieving data');
@@ -49,6 +48,9 @@ class App extends React.Component {
     let checkoutdate = new Date(this.state.checkOut);
 
     let reservation = {
+      nightlyFee: this.state.info.nightly_fee,
+      cleaningFee: this.state.info.cleaning_fee,
+      occupancyTaxRate: this.state.info.occupancy_tax_rate,
       guests: {
         adults: this.state.adults,
         children: this.state.children,
@@ -59,8 +61,8 @@ class App extends React.Component {
     }
 
     $.ajax({
-      url: `/api/${placeID}`,
-      type: 'PATCH',
+      url: `/api/calendar/bookings/${placeID}`,
+      type: 'POST',
       data: reservation,
       success: (data) => {
         this.getData();
@@ -142,7 +144,7 @@ class App extends React.Component {
 
     let button;
     let price;
-    let reserve = this.state.checkIn !== 'Add date' && this.state.checkOut !== 'Add date';
+    const reserve = this.state.checkIn !== 'Add date' && this.state.checkOut !== 'Add date';
 
     if (reserve) {
       button = <div className={styles.pinkButton} onClick={this.reserve.bind(this)}>Reserve</div>
@@ -155,21 +157,22 @@ class App extends React.Component {
 
     return (<div className={styles.calendarForm}>
       <div className={styles.topBar}>
-      <span> <span className={styles.nightlyFee}>${this.state.info.nightly_fee}</span> / night</span>
-      <span className={styles.reviewsRating}> <span className={styles.star}>&#9733;</span> {Math.round(this.state.info.avg_rating * 100)/100} ({this.state.info.reviews})</span>
+        <span> <span className={styles.nightlyFee}>${this.state.info.nightly_fee}</span> / night</span>
+        <span className={styles.reviewsRating}> <span className={styles.star}>&#9733;</span> {Math.round(this.state.info.avg_rating * 100) / 100} ({this.state.info.reviews})</span>
       </div>
       <form onSubmit={this.reserve.bind(this)}>
         <div className={styles.checkinGuestsContainer}>
 
-      <Calendar showCalendarState={this.state.showCalendar} showCalendar={this.showCalendar.bind(this)} bookings={this.state.info.bookings} calculateNights={this.calculateNights.bind(this)} clearDates={this.clearDates.bind(this)} checkIn={this.state.checkIn} checkOut={this.state.checkOut} updateCheckIn={this.updateCheckIn.bind(this)} updateCheckOut={this.updateCheckOut.bind(this)} ref={this.calendarElement}/>
+          <Calendar showCalendarState={this.state.showCalendar} showCalendar={this.showCalendar.bind(this)} bookings={this.state.info.bookings} calculateNights={this.calculateNights.bind(this)} clearDates={this.clearDates.bind(this)} checkIn={this.state.checkIn} checkOut={this.state.checkOut} updateCheckIn={this.updateCheckIn.bind(this)} updateCheckOut={this.updateCheckOut.bind(this)} ref={this.calendarElement} />
 
-      <Guests showGuestsOptions={this.showGuestsOptions.bind(this)} showGuestsState={this.state.showGuestsOptions} updateGuests={this.updateGuests.bind(this)} adults={this.state.adults} children={this.state.children} infants={this.state.infants} max={this.state.info.max_capacity} />
-      </div>
-      {button}
+          <Guests showGuestsOptions={this.showGuestsOptions.bind(this)} showGuestsState={this.state.showGuestsOptions} updateGuests={this.updateGuests.bind(this)} adults={this.state.adults} children={this.state.children} infants={this.state.infants} max={this.state.info.max_capacity} />
+        </div>
+        {button}
       </form>
       {price}
     </div>
-    )}
+    )
+  }
 }
 
 export default App;

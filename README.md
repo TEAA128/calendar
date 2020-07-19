@@ -7,7 +7,6 @@
   - https://github.com/TEAA128/calendar
   - https://github.com/TEAA128/reviews
   - https://github.com/TEAA128/carousel
-  - https://github.com/TEAA128/PhotoGallery
 
 ## Table of Contents
 

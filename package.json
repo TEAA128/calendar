@@ -11,12 +11,16 @@
     "db:setup": "node database/seed.js",
     "dev:react": "webpack -d --watch",
     "test": "jest",
-    "webpack-prod": "webpack -p --mode=production"
+    "webpack-prod": "webpack -p --mode=production",
+    "k6": "k6 run server/script.js"
   },
   "dependencies": {
     "@babel/preset-env": "^7.10.3",
     "@babel/preset-react": "^7.10.1",
     "babel-loader": "^8.1.0",
+    "body-parser": "^1.19.0",
+    "cluster": "^0.7.7",
+    "compression": "^1.7.4",
     "cors": "^2.8.5",
     "csv-write-stream": "^2.0.0",
     "execution-time": "^1.4.1",
@@ -29,6 +33,7 @@
     "moment": "^2.27.0",
     "mongodb": "^3.5.9",
     "mongoose": "^5.9.19",
+    "newrelic": "^6.11.0",
     "nodemon": "^2.0.4",
     "pg": "^8.3.0",
     "pg-promise": "^10.5.8",

@@ -60,4 +60,46 @@ module.exports = {
     return data;
   },
 
+  dataBooking_by_place_id: (mil) => {
+    const data = [];
+    for (let i = 0; i < 10000; i += 1) {
+      const place = {
+        place_id_serial: mil * 1000000 + i + 1,
+        place_id: faker.random.uuid(),
+        average_rating: (Math.random() * (5 - 1) + 1).toFixed(2),
+        number_of_review: Math.floor(Math.random() * (250 - 1) + 1),
+        max_capacity: Math.floor(Math.random() * (15 - 2) + 2),
+        location_city: faker.address.city(),
+        location_country: faker.address.country(),
+      };
+
+      for (let j = 0; j < 5; j += 1) {
+        const oneBooking = {
+          booking_id_serial: i + 1 + mil * 1000000,
+          booking_id: faker.random.uuid(),
+          adults: Math.floor(Math.random() * 6) + 1,
+          children: Math.floor(Math.random() * 3) + 1,
+          infants: Math.floor(Math.random() * 2) + 0,
+          checkin: faker.date.between(`2020-0${8 + (mil % 5)}-1`, `2020-0${8 + (mil % 5)}-3`).toISOString().slice(0, 10),
+          checkout: faker.date.between(`2020-0${8 + (mil % 5)}-6`, `2020-0${8 + (mil % 5)}-9`).toISOString().slice(0, 10),
+          nightly_fee: Math.floor(Math.random() * 300) + 60,
+          cleaning_fee: Math.floor(Math.random() * 150) + 50,
+          occupancy_tax_rate: ((Math.floor(Math.random() * 15) + 8) / 100).toFixed(2),
+          user_id_serial: mil * 1000000 + i + 1,
+          user_id: faker.random.uuid(),
+          first_name: faker.name.firstName(),
+          last_name: faker.name.lastName(),
+          address_line_1: faker.address.streetAddress(),
+          address_line_2: faker.address.secondaryAddress(),
+          city: faker.address.city(),
+          country: faker.address.country(),
+          zip_code: faker.address.zipCode(),
+          email: faker.internet.email(),
+        };
+        const oneItem = Object.assign(place, oneBooking);
+        data.push(oneItem);
+      }
+    }
+    return data;
+  },
 };

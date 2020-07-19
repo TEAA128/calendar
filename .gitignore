@@ -27,3 +27,5 @@ build/
 csvPostgresql/
 csvCassandra/
 
+# licence key for New Relic
+newrelic.js
