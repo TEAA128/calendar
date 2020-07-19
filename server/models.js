@@ -28,7 +28,6 @@ module.exports = {
               });
             }
             callback(data);
-            // callback(response.rows);
           })
           .catch((err) => {
             client.release();
