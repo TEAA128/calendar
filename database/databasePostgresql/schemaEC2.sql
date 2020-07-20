@@ -43,6 +43,8 @@ CREATE TABLE bookings (
   FOREIGN KEY (place_id_serial) REFERENCES places (id)
 );
 
+CREATE INDEX place_id_serial_index ON bookings(place_id_serial);
+
 COPY places(nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/tmp/csvPostgresql/places/placesTable0.csv' DELIMITER ',' CSV HEADER;
 COPY places(nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/tmp/csvPostgresql/places/placesTable1.csv' DELIMITER ',' CSV HEADER;
 COPY places(nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/tmp/csvPostgresql/places/placesTable2.csv' DELIMITER ',' CSV HEADER;
