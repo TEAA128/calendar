@@ -5,7 +5,6 @@ CREATE DATABASE calendarteaa;
 
 CREATE TABLE places (
   place_id_serial serial PRIMARY KEY,
-  place_id uuid,
   nightly_fee smallint,
   cleaning_fee smallint,
   occupancy_tax_rate real,
@@ -18,7 +17,6 @@ CREATE TABLE places (
 
 CREATE TABLE users (
   user_id_serial serial PRIMARY KEY,
-  user_id uuid,
   first_name varchar(25),
   last_name varchar(25),
   address_line_1 varchar(50),
@@ -31,7 +29,6 @@ CREATE TABLE users (
 
 CREATE TABLE bookings (
   booking_id_serial serial PRIMARY KEY,
-  booking_id uuid,
   adults smallint,
   children smallint,
   infants smallint,
