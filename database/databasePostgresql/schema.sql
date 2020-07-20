@@ -4,7 +4,7 @@ CREATE DATABASE calendarteaa;
 \c calendarteaa;
 
 CREATE TABLE places (
-  place_id_serial serial PRIMARY KEY,
+  id SERIAL NOT NULL PRIMARY KEY,
   nightly_fee smallint,
   cleaning_fee smallint,
   occupancy_tax_rate real,
@@ -16,7 +16,7 @@ CREATE TABLE places (
 );
 
 CREATE TABLE users (
-  user_id_serial serial PRIMARY KEY,
+  id SERIAL NOT NULL PRIMARY KEY,
   first_name varchar(25),
   last_name varchar(25),
   address_line_1 varchar(50),
@@ -28,7 +28,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE bookings (
-  booking_id_serial serial PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   adults smallint,
   children smallint,
   infants smallint,
@@ -39,49 +39,39 @@ CREATE TABLE bookings (
   b_occupancy_tax_rate real,
   place_id_serial int,
   user_id_serial int,
-  FOREIGN KEY (user_id_serial) REFERENCES users (user_id_serial),
-  FOREIGN KEY (place_id_serial) REFERENCES places (place_id_serial)
+  FOREIGN KEY (user_id_serial) REFERENCES users (id),
+  FOREIGN KEY (place_id_serial) REFERENCES places (id)
 );
 
+COPY places(nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/places/placesTable0.csv' DELIMITER ',' CSV HEADER;
+COPY places(nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/places/placesTable1.csv' DELIMITER ',' CSV HEADER;
+COPY places(nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/places/placesTable2.csv' DELIMITER ',' CSV HEADER;
+COPY places(nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/places/placesTable3.csv' DELIMITER ',' CSV HEADER;
+COPY places(nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/places/placesTable4.csv' DELIMITER ',' CSV HEADER;
+COPY places(nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/places/placesTable5.csv' DELIMITER ',' CSV HEADER;
+COPY places(nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/places/placesTable6.csv' DELIMITER ',' CSV HEADER;
+COPY places(nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/places/placesTable7.csv' DELIMITER ',' CSV HEADER;
+COPY places(nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/places/placesTable8.csv' DELIMITER ',' CSV HEADER;
+COPY places(nightly_fee, cleaning_fee, occupancy_tax_rate, average_rating, number_of_review, max_capacity, location_city, location_country) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/places/placesTable9.csv' DELIMITER ',' CSV HEADER;
 
-COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable0.csv' CSV HEADER;
-COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable1.csv' CSV HEADER;
-COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable2.csv' CSV HEADER;
-COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable3.csv' CSV HEADER;
-COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable4.csv' CSV HEADER;
-COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable5.csv' CSV HEADER;
-COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable6.csv' CSV HEADER;
-COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable7.csv' CSV HEADER;
-COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable8.csv' CSV HEADER;
-COPY places FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/placesTable9.csv' CSV HEADER;
+COPY users(first_name, last_name, address_line_1, address_line_2, city, country, zip_code, email) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/users/usersTable0.csv' DELIMITER ',' CSV HEADER;
+COPY users(first_name, last_name, address_line_1, address_line_2, city, country, zip_code, email) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/users/usersTable1.csv' DELIMITER ',' CSV HEADER;
+COPY users(first_name, last_name, address_line_1, address_line_2, city, country, zip_code, email) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/users/usersTable2.csv' DELIMITER ',' CSV HEADER;
+COPY users(first_name, last_name, address_line_1, address_line_2, city, country, zip_code, email) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/users/usersTable3.csv' DELIMITER ',' CSV HEADER;
+COPY users(first_name, last_name, address_line_1, address_line_2, city, country, zip_code, email) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/users/usersTable4.csv' DELIMITER ',' CSV HEADER;
+COPY users(first_name, last_name, address_line_1, address_line_2, city, country, zip_code, email) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/users/usersTable5.csv' DELIMITER ',' CSV HEADER;
+COPY users(first_name, last_name, address_line_1, address_line_2, city, country, zip_code, email) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/users/usersTable6.csv' DELIMITER ',' CSV HEADER;
+COPY users(first_name, last_name, address_line_1, address_line_2, city, country, zip_code, email) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/users/usersTable7.csv' DELIMITER ',' CSV HEADER;
+COPY users(first_name, last_name, address_line_1, address_line_2, city, country, zip_code, email) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/users/usersTable8.csv' DELIMITER ',' CSV HEADER;
+COPY users(first_name, last_name, address_line_1, address_line_2, city, country, zip_code, email) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/users/usersTable9.csv' DELIMITER ',' CSV HEADER;
 
-COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable0.csv' CSV HEADER;
-COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable1.csv' CSV HEADER;
-COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable2.csv' CSV HEADER;
-COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable3.csv' CSV HEADER;
-COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable4.csv' CSV HEADER;
-COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable5.csv' CSV HEADER;
-COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable6.csv' CSV HEADER;
-COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable7.csv' CSV HEADER;
-COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable8.csv' CSV HEADER;
-COPY users FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/usersTable9.csv' CSV HEADER;
-
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable5.csv' CSV HEADER;
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable10.csv' CSV HEADER;
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable15.csv' CSV HEADER;
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable19.csv' CSV HEADER;
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable23.csv' CSV HEADER;
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable26.csv' CSV HEADER;
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable28.csv' CSV HEADER;
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable29.csv' CSV HEADER;
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable30.csv' CSV HEADER;
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable35.csv' CSV HEADER;
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable40.csv' CSV HEADER;
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable45.csv' CSV HEADER;
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable50.csv' CSV HEADER;
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable55.csv' CSV HEADER;
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable60.csv' CSV HEADER;
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable65.csv' CSV HEADER;
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable70.csv' CSV HEADER;
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable75.csv' CSV HEADER;
-COPY bookings FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookingsTable80.csv' CSV HEADER;
+COPY bookings(adults, children, infants, checkin, checkout, b_nightly_fee,b_cleaning_fee, b_occupancy_tax_rate, place_id_serial, user_id_serial) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookings/bookingsTable0.csv' DELIMITER ',' CSV HEADER;
+COPY bookings(adults, children, infants, checkin, checkout, b_nightly_fee,b_cleaning_fee, b_occupancy_tax_rate, place_id_serial, user_id_serial) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookings/bookingsTable1.csv' DELIMITER ',' CSV HEADER;
+COPY bookings(adults, children, infants, checkin, checkout, b_nightly_fee,b_cleaning_fee, b_occupancy_tax_rate, place_id_serial, user_id_serial) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookings/bookingsTable2.csv' DELIMITER ',' CSV HEADER;
+COPY bookings(adults, children, infants, checkin, checkout, b_nightly_fee,b_cleaning_fee, b_occupancy_tax_rate, place_id_serial, user_id_serial) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookings/bookingsTable3.csv' DELIMITER ',' CSV HEADER;
+COPY bookings(adults, children, infants, checkin, checkout, b_nightly_fee,b_cleaning_fee, b_occupancy_tax_rate, place_id_serial, user_id_serial) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookings/bookingsTable4.csv' DELIMITER ',' CSV HEADER;
+COPY bookings(adults, children, infants, checkin, checkout, b_nightly_fee,b_cleaning_fee, b_occupancy_tax_rate, place_id_serial, user_id_serial) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookings/bookingsTable5.csv' DELIMITER ',' CSV HEADER;
+COPY bookings(adults, children, infants, checkin, checkout, b_nightly_fee,b_cleaning_fee, b_occupancy_tax_rate, place_id_serial, user_id_serial) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookings/bookingsTable6.csv' DELIMITER ',' CSV HEADER;
+COPY bookings(adults, children, infants, checkin, checkout, b_nightly_fee,b_cleaning_fee, b_occupancy_tax_rate, place_id_serial, user_id_serial) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookings/bookingsTable7.csv' DELIMITER ',' CSV HEADER;
+COPY bookings(adults, children, infants, checkin, checkout, b_nightly_fee,b_cleaning_fee, b_occupancy_tax_rate, place_id_serial, user_id_serial) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookings/bookingsTable8.csv' DELIMITER ',' CSV HEADER;
+COPY bookings(adults, children, infants, checkin, checkout, b_nightly_fee,b_cleaning_fee, b_occupancy_tax_rate, place_id_serial, user_id_serial) FROM '/Users/tegshee/Documents/HackReactor/SDC/Calendar/csvPostgresql/bookings/bookingsTable9.csv' DELIMITER ',' CSV HEADER;
