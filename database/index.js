@@ -1,5 +1,5 @@
 const { Pool } = require('pg');
-const keys = require('./config.js');
+const keys = require('../config.js');
 
 const pool = new Pool({
   host: '204.236.188.132',
