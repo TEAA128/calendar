@@ -2,7 +2,7 @@ const pool = require('../database/index.js');
 
 module.exports = {
   getAll: (placeId, callback) => {
-    const query = 'SELECT * FROM places INNER JOIN bookings ON places.place_id_serial = bookings.place_id_serial WHERE places.place_id_serial = $1';
+    const query = 'SELECT * FROM places INNER JOIN bookings ON places.id = bookings.place_id_serial WHERE places.id = $1';
     pool
       .connect()
       .then((client) => {
@@ -11,7 +11,7 @@ module.exports = {
           .then((response) => {
             client.release();
             const data = {
-              place_id_serial: response.rows[0].place_id_serial,
+              id: response.rows[0].id,
               nightly_fee: response.rows[0].nightly_fee,
               cleaning_fee: response.rows[0].cleaning_fee,
               occupancy_tax_rate: response.rows[0].occupancy_tax_rate,
@@ -37,14 +37,13 @@ module.exports = {
       });
   },
 
-  // TODO FIX Booking_id_serial into serial when seeding database in EC2
-  createBooking: (placeId, nightlyFee, cleaningFee, occupancyTaxRate, checkin, checkout, adults, children, infants, callback) => {
-    const query = 'INSERT INTO bookings(place_id_serial, b_nightly_fee, b_cleaning_fee, b_occupancy_tax_rate, checkin, checkout, adults, children, infants, booking_id, booking_id_serial ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, gen_random_uuid(), 80000005)';
+  createBooking: (nightlyFee, cleaningFee, occupancyTaxRate, checkin, checkout, adults, children, infants, placeId, userId, callback) => {
+    const query = 'INSERT INTO bookings(b_nightly_fee, b_cleaning_fee, b_occupancy_tax_rate, checkin, checkout, adults, children, infants, place_id_serial, user_id_serial ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
     pool
       .connect()
       .then((client) => {
         return client
-          .query(query, [placeId, nightlyFee, cleaningFee, occupancyTaxRate, checkin, checkout, adults, children, infants])
+          .query(query, [nightlyFee, cleaningFee, occupancyTaxRate, checkin, checkout, adults, children, infants, placeId, userId])
           .then((response) => {
             client.release();
             callback(null, response.rows);
