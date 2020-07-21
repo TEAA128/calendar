@@ -15,7 +15,7 @@ exports.config = {
   /**
    * Your New Relic license key.
    */
-  license_key: '3fef82dfa5cd1c6eeab5d1cb16a585044762NRAL',
+  license_key: keys.newRelicKey,
   /**
    * This setting controls distributed tracing.
    * Distributed tracing lets you see the path that a request takes through your
