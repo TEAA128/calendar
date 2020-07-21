@@ -57,7 +57,8 @@ class App extends React.Component {
         infants: this.state.infants
       },
       checkin: checkindate.toISOString(),
-      checkout: checkoutdate.toISOString()
+      checkout: checkoutdate.toISOString(),
+      userId: '1',
     }
 
     $.ajax({
