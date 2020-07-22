@@ -2,7 +2,7 @@ import http from 'k6/http';
 import { sleep } from 'k6';
 
 export const options = {
-  vus: 1600,
+  vus: 100,
   duration: '30s',
 };
 
@@ -25,6 +25,6 @@ export const options = {
 // Test Case 2
 export default function() {
   const placeId = Math.floor(Math.random() * (10000000)) + 1;
-  http.get(`http://localhost:3001/api/calendar/place/${placeId}`);
+  http.get(`http://localhost/api/calendar/bookings/${placeId}`);
   sleep(1);
 }

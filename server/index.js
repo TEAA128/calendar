@@ -19,6 +19,7 @@ if (cluster.isMaster) {
 
   app.use(cors());
   app.use('/calendar', express.static(path.join(__dirname, '../client/dist/')));
+  app.use('/loaderio-0e1f71bc56b5e76e0e9be873332039ca.txt', express.static(path.join(__dirname, '../client/dist/loaderio-0e1f71bc56b5e76e0e9be873332039ca.txt')));
 
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
